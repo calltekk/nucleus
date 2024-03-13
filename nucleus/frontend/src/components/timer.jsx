@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './timer.css'; // Import your custom CSS file
+import './timer.css';
 
 const PomodoroTimer = () => {
   const timerOptions = [
