@@ -45,7 +45,9 @@ const PomodoroTimer = () => {
   }, [isActive, minutes, seconds, selectedOption]);
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
+    if (option.label !== selectedOption.label) {
+      setSelectedOption(option);
+    }
   };
 
   const toggleTimer = () => {
