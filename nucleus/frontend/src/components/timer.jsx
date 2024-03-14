@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './timer.css';
+import './Timer.css';
+import { Armchair, Coffee, NotebookPen, PauseCircle, PlayCircle, RotateCcw } from 'lucide-react';
 
 const PomodoroTimer = () => {
   const timerOptions = [
@@ -9,6 +10,34 @@ const PomodoroTimer = () => {
     { label: 'Short Break', minutes: 5 },
     { label: 'Long Break', minutes: 15 },
   ];
+
+  const labelIcon = (label) => {
+    switch (label) {
+      case "Pomodoro":
+        return (<NotebookPen className="inline me-2" size={20}/>)
+        break;
+      case "Short Break":
+        return (<Coffee className="inline me-2" size={20}/>)
+        break;
+      case "Long Break":
+        return(<Armchair className="inline me-2" size={20}/>)
+      default:
+        break;
+    }
+  }
+
+  const startIcon = (isActive) => {
+    switch (isActive) {
+      case false:
+        return (<PlayCircle className="inline me-2" size={20}/>)
+        break;
+      case true:
+        return (<PauseCircle className="inline me-2" size={20}/>)
+        break;
+      default:
+        break;
+    }
+  }
 
   const [selectedOption, setSelectedOption] = useState(timerOptions[0]);
   const [minutes, setMinutes] = useState(selectedOption.minutes);
@@ -63,23 +92,24 @@ const PomodoroTimer = () => {
   const percentageRemaining = ((minutes * 60 + seconds) / (selectedOption.minutes * 60)) * 100;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="bg-gray-200 p-4 mb-8 rounded-md text-center relative">
+    <div className="flex flex-col items-center justify-center">
+      <div className="p-4 mb-8 rounded-md text-center relative">
         <div className="flex space-x-8 mb-8">
           {timerOptions.map((option) => (
             <button
               key={option.label}
-              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded ${
+              className={`hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 text-white font-bold py-2 px-6 rounded-full ${
                 option.label === selectedOption.label ? 'bg-blue-700' : ''
               }`}
               onClick={() => handleOptionClick(option)}
             >
-              {option.label}
+              {labelIcon(option.label)}{option.label}
             </button>
           ))}
         </div>
-        <div className="relative mt-16">
+        <div className="relative mt-16 mb-8">
           <CircularProgressbar
+          className="select-none"
             value={percentageRemaining}
             text={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
             styles={buildStyles({
@@ -94,18 +124,18 @@ const PomodoroTimer = () => {
             })}
           />
         </div>
-        <div className="flex justify-center space-x-8 mt-32">
+        <div className="flex justify-center space-x-8 mt-16">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded"
+            className="hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 text-white font-bold py-2 px-6 rounded-full"
             onClick={toggleTimer}
           >
-            {isActive ? 'Pause' : 'Start'}
+            {startIcon(isActive)}{isActive ? 'Pause' : 'Start'}
           </button>
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-6 rounded"
+            className="hover:bg-red-500 border-2 border-red-500 hover:border-red-700 duration-500 text-white font-bold py-2 px-6 rounded-full"
             onClick={resetTimer}
           >
-            Reset
+            <RotateCcw className="inline me-2" size={15}/>Reset
           </button>
         </div>
       </div>
