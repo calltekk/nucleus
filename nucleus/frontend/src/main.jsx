@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <> 
+  {/* Removed React.Strict.Mode to enable drag and drop */}
     <App />
-  </React.StrictMode>,
+  </>,
 );

@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]); //set task list as empty array
@@ -36,16 +38,48 @@ const TaskList = () => {
     }
   };
 
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const newTasks = Array.from(tasks);
+    const [removed] = newTasks.splice(result.source.index, 1);
+    newTasks.splice(result.destination.index, 0, removed);
+
+    setTasks(newTasks);
+  };
+
   return (
     <div>
       <h3 className="text-5xl mb-5">Task List</h3>
       <div className="task-container max-h-dvh my-3 overflow-auto">
-        {tasks.map(task => (
-          <div key={task.id} className="task-item pe-5 py-1 flex justify-between group">
-            <span className="rounded-full border-2 w-full p-5">{task.text}</span>
-            <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 mx-5 border-2 border-red-500 bg-red-200 text-sm rounded-full px-3 py-1 my-auto text-slate-900" onClick={() => removeTask(task.id)}>Delete</button>
+      <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="task-list">
+        {(provided) => (
+          <div
+            className="task-container"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {tasks.map((task, index) => (
+              <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                {(provided) => (
+                  <div
+                    className="task-item pe-5 py-1 flex justify-between group"
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                    <span className="rounded-full border-2 w-full p-5">{task.text}</span>
+                    <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 mx-5 border-2 border-red-500 bg-red-200 text-sm rounded-full px-3 py-1 my-auto text-slate-900" onClick={() => removeTask(task.id)}>Delete</button>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
           </div>
-        ))}
+        )}
+      </Droppable>
+    </DragDropContext>
       </div>
       <button className="mt-5 border-2 px-3 py-1 rounded-lg bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}>Add Task</button>
 
