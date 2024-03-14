@@ -37,21 +37,22 @@ const TaskList = () => {
   };
 
   return (
-    <div className="m-20 lg:m-40 2xl:max-w-[50%]">
-      <h3 className="text-5xl mx-auto">Task List</h3>
-      <button className="m-5 border-2 px-3 py-1 rounded-lg bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}>Add Task</button>
-      <div className="task-container max-h-dvh border-2 rounded-lg">
+    <div>
+      <h3 className="text-5xl mb-5">Task List</h3>
+      <div className="task-container max-h-dvh my-3 overflow-auto">
         {tasks.map(task => (
-          <div key={task.id} className="task-item px-5 py-2 border-b-[1px] border-slate-500 flex justify-between">
-            <span className="">{task.text}</span>
-            <button className="mx-5 border-2 border-red-500 bg-red-200 text-sm rounded-md px-2 py-[0.5] text-slate-900" onClick={() => removeTask(task.id)}>Delete</button>
+          <div key={task.id} className="task-item pe-5 py-1 flex justify-between group">
+            <span className="rounded-full border-2 w-full p-5">{task.text}</span>
+            <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 mx-5 border-2 border-red-500 bg-red-200 text-sm rounded-full px-3 py-1 my-auto text-slate-900" onClick={() => removeTask(task.id)}>Delete</button>
           </div>
         ))}
       </div>
+      <button className="mt-5 border-2 px-3 py-1 rounded-lg bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}>Add Task</button>
+
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="task-modal m-5">
+        <div className="task-modal my-3">
           <div className="modal-content flex justify-start items-center">
             <span className="close me-2 rounded-full px-4 py-1 bg-red-800 hover:bg-red-700 duration-500 cursor-pointer text-slate-50 text-sm" onClick={closeModal}>&times;</span>
             <input
