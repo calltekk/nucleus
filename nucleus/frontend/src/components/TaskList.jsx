@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]); //set task list as empty array
@@ -36,17 +38,49 @@ const TaskList = () => {
     }
   };
 
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const newTasks = Array.from(tasks);
+    const [removed] = newTasks.splice(result.source.index, 1);
+    newTasks.splice(result.destination.index, 0, removed);
+
+    setTasks(newTasks);
+  };
+
   return (
     <div>
       <h3>Task List</h3>
       <button onClick={openModal}>Add Task</button>
       <div className="task-container">
-        {tasks.map(task => (
-          <div key={task.id} className="task-item">
-            <span>{task.text}</span>
-            <button onClick={() => removeTask(task.id)}>Delete</button>
+      <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="task-list">
+        {(provided) => (
+          <div
+            className="task-container"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {tasks.map((task, index) => (
+              <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                {(provided) => (
+                  <div
+                    className="task-item"
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                    <span>{task.text}</span>
+                    <button onClick={() => removeTask(task.id)}>Delete</button>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
           </div>
-        ))}
+        )}
+      </Droppable>
+    </DragDropContext>
       </div>
 
       {/* Modal */}
