@@ -64,12 +64,12 @@ const TaskList = () => {
               <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
                 {(provided) => (
                   <div
-                    className="task-item pe-5 py-1 flex justify-between group"
+                    className="task-item my-3 pe-5 py-1 flex justify-between items-center group"
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
-                    <span className="rounded-full border-2 w-full p-5">{task.text}</span>
+                    <span className="rounded-full border-2 border-slate-500 w-full px-5 py-2">{task.text}</span>
                     <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 mx-5 border-2 border-red-500 bg-red-200 text-sm rounded-full px-3 py-1 my-auto text-slate-900" onClick={() => removeTask(task.id)}>Delete</button>
                   </div>
                 )}
@@ -81,7 +81,7 @@ const TaskList = () => {
       </Droppable>
     </DragDropContext>
       </div>
-      <button className="mt-5 border-2 px-3 py-1 rounded-lg bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}>Add Task</button>
+      <button className="mt-5 border-2 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}>Add Task</button>
 
 
       {/* Modal */}
