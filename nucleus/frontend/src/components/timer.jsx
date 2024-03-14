@@ -83,7 +83,7 @@ const PomodoroTimer = () => {
             value={percentageRemaining}
             text={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
             styles={buildStyles({
-              rotation: 0.25,
+              rotation: 0,
               strokeLinecap: 'butt',
               textSize: '16px',
               pathTransitionDuration: 0.5,
