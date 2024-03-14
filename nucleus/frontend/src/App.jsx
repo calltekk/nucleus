@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { NavLink, Link } from "react-router-dom";
-import TaskList from "./components/TaskList";
-import PomodoroTimer from "./components/timer";
 
+import HomePage from "./pages/1-HomePage";
+import TasksTimer from "./pages/2-Tasks-Timer";
+import TasksFullscreen from "./pages/3-Tasks";
+import TaskCreation from "./pages/4-Task-Creation";
 
 
 function App() {
   return (
     <>
-      <h1 className="border-2 p-2 text-5xl rounded-lg m-1">Nucleus</h1>
-    <TaskList />
-    <PomodoroTimer />
+      <HomePage />
+      <TasksTimer />
+      <TasksFullscreen />
+      <TaskCreation />
     </>
   )
 };
