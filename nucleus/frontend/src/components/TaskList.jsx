@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
+import { Trash2, CircleX, CirclePlus, PencilLine } from 'lucide-react';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]); //set task list as empty array
@@ -69,8 +69,8 @@ const TaskList = () => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
-                    <span className="rounded-full border-2 border-slate-500 w-full px-5 py-2">{task.text}</span>
-                    <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 mx-5 border-2 border-red-500 bg-red-200 text-sm rounded-full px-3 py-1 my-auto text-slate-900" onClick={() => removeTask(task.id)}>Delete</button>
+                    <span className="rounded-full border-2 border-slate-500 w-full px-5 py-2 min-w-[10vw]">{task.text}</span>
+                    <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-red-500 bg-red-200 rounded-full p-2 my-auto text-slate-900" onClick={() => removeTask(task.id)}><Trash2 size={15}/></button>
                   </div>
                 )}
               </Draggable>
@@ -81,16 +81,16 @@ const TaskList = () => {
       </Droppable>
     </DragDropContext>
       </div>
-      <button className="mt-5 border-2 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}>Add Task</button>
+      <button className="mt-5 mb-3 border-2 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /> Task</button>
 
 
       {/* Modal */}
       {isModalOpen && (
         <div className="task-modal my-3">
-          <div className="modal-content flex justify-start items-center">
-            <span className="close me-2 rounded-full px-4 py-1 bg-red-800 hover:bg-red-700 duration-500 cursor-pointer text-slate-50 text-sm" onClick={closeModal}>&times;</span>
+          <div className="modal-content flex items-center">
+            <span className="close me-2 rounded-full p-2 bg-rose-800 hover:bg-rose-500 duration-500 cursor-pointer text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
             <input
-              className="py-1 px-5 rounded-full w-fit"
+              className="py-2 px-5 rounded-full w-fit"
               type="text" 
               placeholder="Enter Task" 
               value={newTaskText}
@@ -98,7 +98,7 @@ const TaskList = () => {
               onKeyDown={handleKeyDown} // Handle key down event
               ref={inputRef} // Set ref for the input field
             />
-            <button className="mx-2 rounded-full px-3 py-1 bg-green-800 hover:bg-green-700 duration-500 cursor-pointer text-slate-50 text-sm " onClick={addTask}>Add</button>
+            <button className="mx-2 rounded-full p-2 bg-green-800 hover:bg-green-500 duration-500 cursor-pointer text-slate-50" onClick={addTask}><CirclePlus size={20} /></button>
           </div>
         </div>
       )}
