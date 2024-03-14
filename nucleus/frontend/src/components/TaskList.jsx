@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Trash2, CircleX, CirclePlus, PencilLine } from 'lucide-react';
+import { CircleCheckBig , CircleX, CirclePlus, PencilLine } from 'lucide-react';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]); //set task list as empty array
@@ -70,7 +70,7 @@ const TaskList = () => {
                     {...provided.dragHandleProps}
                   >
                     <span className="rounded-full border-2 border-slate-500 w-full px-5 py-2 min-w-[10vw]">{task.text}</span>
-                    <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-red-500 bg-red-200 rounded-full p-2 my-auto text-slate-900" onClick={() => removeTask(task.id)}><Trash2 size={15}/></button>
+                    <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-green-500 hover:bg-emerald-600 rounded-full p-2 my-auto text-slate-50" onClick={() => removeTask(task.id)}><CircleCheckBig size={15}/></button>
                   </div>
                 )}
               </Draggable>
