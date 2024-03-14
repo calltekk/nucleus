@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { CircleCheckBig , CircleX, CirclePlus, Save, PenLine } from 'lucide-react';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]); // state for empty array of tasks
@@ -74,6 +75,18 @@ useEffect(() => {
     setTasks(newTasks);
   };
 
+  const updateAddButton = () => {
+    if (editingTaskIndex !== null) {
+      return (
+        <Save size={20} />
+      )
+    } else if (editingTaskIndex == null){
+      return (
+        <CirclePlus size={20} />
+      )
+    }
+  }
+
   return (
     <div>
       <h3 className="text-5xl mb-5">Task List</h3>
@@ -107,9 +120,9 @@ useEffect(() => {
                         ) : (
                           <span className="rounded-full border-2 border-slate-500 w-full px-5 py-2">{task.text}</span>
                         )}
-                        <div>
-                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 mx-2 border-2 border-blue-500 bg-blue-200 text-sm rounded-full px-3 py-1 my-auto text-slate-900" onClick={() => editTask(index)}>Edit</button>
-                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 mx-2 border-2 border-red-500 bg-red-200 text-sm rounded-full px-3 py-1 my-auto text-slate-900" onClick={() => removeTask(task.id)}>Delete</button>
+                        <div className="flex justify-start items-center">
+                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-blue-500 hover:bg-sky-500 rounded-full p-2 my-auto text-slate-50" onClick={() => editTask(index)}><PenLine size={15} /></button>
+                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-green-500 hover:bg-emerald-600 rounded-full p-2 my-auto text-slate-50" onClick={() => removeTask(task.id)}><CircleCheckBig size={15}/></button>
                         </div>
                       </div>
                     )}
@@ -121,14 +134,16 @@ useEffect(() => {
           </Droppable>
         </DragDropContext>
       </div>
-      <button className="mt-5 border-2 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}>Add Task</button>
+      <button className="mt-5 mb-3 border-2 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /> Task</button>
 
+
+      {/* Modal */}
       {isModalOpen && (
         <div className="task-modal my-3">
-          <div className="modal-content flex justify-start items-center">
-            <span className="close me-2 rounded-full px-4 py-1 bg-red-800 hover:bg-red-700 duration-500 cursor-pointer text-slate-50 text-sm" onClick={closeModal}>&times;</span>
+          <div className="modal-content flex items-center">
+            <span className="close me-3 rounded-full p-2 border-2 border-rose-800 hover:bg-rose-500 duration-500 cursor-pointer text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
             <input
-              className="py-1 px-5 rounded-full w-fit"
+              className="py-2 px-5 rounded-full w-fit"
               type="text"
               placeholder="Enter Task"
               value={newTaskText}
@@ -136,7 +151,9 @@ useEffect(() => {
               onKeyDown={handleKeyDown}
               ref={inputRef}
             />
-            <button className="mx-2 rounded-full px-3 py-1 bg-green-800 hover:bg-green-700 duration-500 cursor-pointer text-slate-50 text-sm" onClick={editingTaskIndex !== null ? updateTask : addTask}>{editingTaskIndex !== null ? 'Update' : 'Add'}</button>
+            <button className="ms-3 rounded-full p-2 border-2 border-green-500 hover:bg-emerald-600 duration-500 cursor-pointer text-slate-50" onClick={editingTaskIndex !== null ? updateTask : addTask}>
+              {updateAddButton(editingTaskIndex)}
+            </button>
           </div>
         </div>
       )}
