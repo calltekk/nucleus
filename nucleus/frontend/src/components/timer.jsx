@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { Armchair, Coffee, NotebookPen, PauseCircle, PlayCircle, RotateCcw } from 'lucide-react';
+import { Armchair, Coffee, NotebookPen, PauseCircle, PlayCircle, RotateCcw, Settings } from 'lucide-react';
 import pauseSound from '../../public/sounds/pauseTimer.mp3';
 import playSound from '../../public/sounds/startTimer.mp3';
 import timerEndSound from '../../public/sounds/timesUp.mp3';
 import optionChangeSound from '../../public/sounds/optionChange.mp3';
+import SettingsModal from './SettingsModal';
 
 const PomodoroTimer = () => {
   const timerOptions = [
@@ -35,8 +36,8 @@ const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(selectedOption.minutes);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  
   const pauseAudio = new Audio(pauseSound);
   const playAudio = new Audio(playSound);
   const timerEndAudio = new Audio(timerEndSound);
@@ -79,6 +80,14 @@ const PomodoroTimer = () => {
   };
 
   const percentageRemaining = ((minutes * 60 + seconds) / (selectedOption.minutes * 60)) * 100;
+
+  const toggleSettingsModal = () => {
+    setShowSettingsModal(!showSettingsModal);
+  };
+
+  const handleSettingsClose = () => {
+    setShowSettingsModal(false);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -127,6 +136,20 @@ const PomodoroTimer = () => {
             <RotateCcw className="inline me-2" size={15}/>Reset
           </button>
         </div>
+        
+        <div className="absolute top-0 right-0 mt-20 mr-0 cursor-pointer" onClick={toggleSettingsModal}>
+          <Settings size={24} />
+        </div>
+
+        {showSettingsModal && (
+          <SettingsModal
+            timerOptions={timerOptions}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            optionChangeAudio={optionChangeAudio}
+            onClose={handleSettingsClose}
+          />
+        )}
       </div>
     </div>
   );
