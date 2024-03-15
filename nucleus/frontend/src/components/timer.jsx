@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './Timer.css';
 import { Armchair, Coffee, NotebookPen, PauseCircle, PlayCircle, RotateCcw } from 'lucide-react';
+import pauseSound from '../../public/sounds/pauseTimer.mp3';
+import playSound from '../../public/sounds/startTimer.mp3';
+import timerEndSound from '../../public/sounds/timesUp.mp3';
+import optionChangeSound from '../../public/sounds/optionChange.mp3';
 
 const PomodoroTimer = () => {
   const timerOptions = [
@@ -14,73 +17,59 @@ const PomodoroTimer = () => {
   const labelIcon = (label) => {
     switch (label) {
       case "Pomodoro":
-        return (<NotebookPen className="inline me-2" size={20}/>)
-        break;
+        return (<NotebookPen className="inline me-2" size={20}/>);
       case "Short Break":
-        return (<Coffee className="inline me-2" size={20}/>)
-        break;
+        return (<Coffee className="inline me-2" size={20}/>);
       case "Long Break":
-        return(<Armchair className="inline me-2" size={20}/>)
+        return (<Armchair className="inline me-2" size={20}/>);
       default:
         break;
     }
-  }
+  };
 
   const startIcon = (isActive) => {
-    switch (isActive) {
-      case false:
-        return (<PlayCircle className="inline me-2" size={20}/>)
-        break;
-      case true:
-        return (<PauseCircle className="inline me-2" size={20}/>)
-        break;
-      default:
-        break;
-    }
-  }
+    return isActive ? <PauseCircle className="inline me-2" size={20}/> : <PlayCircle className="inline me-2" size={20}/>;
+  };
 
   const [selectedOption, setSelectedOption] = useState(timerOptions[0]);
   const [minutes, setMinutes] = useState(selectedOption.minutes);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
+  // Create audio objects
+  const pauseAudio = new Audio(pauseSound);
+  const playAudio = new Audio(playSound);
+  const timerEndAudio = new Audio(timerEndSound);
+  const optionChangeAudio = new Audio(optionChangeSound);
+
   useEffect(() => {
     setMinutes(selectedOption.minutes);
     setSeconds(0);
   }, [selectedOption]);
 
+  const toggleTimer = () => {
+    setIsActive((prevIsActive) => {
+      if (!prevIsActive) {
+        playAudio.play();
+      } else {
+        pauseAudio.play();
+      }
+      return !prevIsActive;
+    });
+  };
+
   useEffect(() => {
-    let interval;
-
-    if (isActive) {
-      interval = setInterval(() => {
-        if (seconds === 0) {
-          if (minutes === 0) {
-            clearInterval(interval);
-            setIsActive(false);
-          } else {
-            setMinutes((prevMinutes) => prevMinutes - 1);
-            setSeconds(59);
-          }
-        } else {
-          setSeconds((prevSeconds) => prevSeconds - 1);
-        }
-      }, 1000);
-    } else {
-      clearInterval(interval);
+    if (minutes === 0 && seconds === 0 && isActive) {
+      setIsActive(false);
+      timerEndAudio.play();
     }
-
-    return () => clearInterval(interval);
-  }, [isActive, minutes, seconds, selectedOption]);
+  }, [isActive, minutes, seconds, timerEndAudio]);
 
   const handleOptionClick = (option) => {
     if (option.label !== selectedOption.label) {
       setSelectedOption(option);
+      optionChangeAudio.play();
     }
-  };
-
-  const toggleTimer = () => {
-    setIsActive((prevIsActive) => !prevIsActive);
   };
 
   const resetTimer = () => {
@@ -109,7 +98,7 @@ const PomodoroTimer = () => {
         </div>
         <div className="relative mt-16 mb-8">
           <CircularProgressbar
-          className="select-none"
+            className="select-none"
             value={percentageRemaining}
             text={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
             styles={buildStyles({
