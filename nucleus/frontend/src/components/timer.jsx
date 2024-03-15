@@ -37,6 +37,7 @@ const PomodoroTimer = () => {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [timerInterval, setTimerInterval] = useState(null); // Declare timerInterval state variable
 
   const pauseAudio = new Audio(pauseSound);
   const playAudio = new Audio(playSound);
@@ -53,11 +54,12 @@ const PomodoroTimer = () => {
       if (!prevIsActive) {
         playAudio.currentTime = 0; // Reset audio to the beginning
         playAudio.play(); // Play audio
-        const timerInterval = setInterval(() => {
+        const intervalId = setInterval(() => {
           setSeconds((prevSeconds) => {
             if (prevSeconds === 0) {
               if (minutes === 0) {
-                clearInterval(timerInterval);
+                clearInterval(intervalId); // Stop the timer
+                setIsActive(false); // Update isActive state
                 timerEndAudio.play();
                 return 0;
               }
@@ -67,32 +69,32 @@ const PomodoroTimer = () => {
             return prevSeconds - 1;
           });
         }, 1000);
-        return timerInterval;
+        setTimerInterval(intervalId); // Set the interval to state
+        return true;
       } else {
-        clearInterval(prevIsActive);
+        clearInterval(timerInterval); // Clear the interval when pausing
         pauseAudio.play();
+        return false;
       }
-      return false;
     });
   };
-  useEffect(() => {
-    if (minutes === 0 && seconds === 0 && isActive) {
-      setIsActive(false);
-      timerEndAudio.play();
-    }
-  }, [isActive, minutes, seconds, timerEndAudio]);
 
   const handleOptionClick = (option) => {
     if (option.label !== selectedOption.label) {
       setSelectedOption(option);
       optionChangeAudio.play();
+      if (isActive) {
+        clearInterval(timerInterval); // Clear the interval when changing the option
+        setIsActive(false); // Update isActive state
+      }
     }
   };
 
   const resetTimer = () => {
-    setIsActive(false);
-    setMinutes(selectedOption.minutes);
-    setSeconds(0);
+    clearInterval(timerInterval); // Clear the interval
+    setIsActive(false); // Update isActive state
+    setMinutes(selectedOption.minutes); // Reset minutes to the default value
+    setSeconds(0); // Reset seconds to 0
   };
 
   const percentageRemaining = ((minutes * 60 + seconds) / (selectedOption.minutes * 60)) * 100;
