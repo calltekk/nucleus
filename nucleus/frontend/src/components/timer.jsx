@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './Timer.css';
-import { Armchair, Coffee, NotebookPen, PauseCircle, PlayCircle, RotateCcw } from 'lucide-react';
+import { Armchair, Coffee, NotebookPen, PauseCircle, PlayCircle, RotateCcw, Settings } from 'lucide-react';
+import pauseSound from '../../src/sounds/pauseTimer.mp3';
+import playSound from '../../src/sounds/startTimer.mp3';
+import timerEndSound from '../../src/sounds/timesUp.mp3';
+import optionChangeSound from '../../src/sounds/optionChange.mp3';
+import SettingsModal from './SettingsModal';
 
 const PomodoroTimer = () => {
   const timerOptions = [
@@ -14,82 +18,94 @@ const PomodoroTimer = () => {
   const labelIcon = (label) => {
     switch (label) {
       case "Pomodoro":
-        return (<NotebookPen className="inline me-2" size={20}/>)
-        break;
+        return (<NotebookPen className="inline me-2" size={20}/>);
       case "Short Break":
-        return (<Coffee className="inline me-2" size={20}/>)
-        break;
+        return (<Coffee className="inline me-2" size={20}/>);
       case "Long Break":
-        return(<Armchair className="inline me-2" size={20}/>)
+        return (<Armchair className="inline me-2" size={20}/>);
       default:
         break;
     }
-  }
+  };
 
   const startIcon = (isActive) => {
-    switch (isActive) {
-      case false:
-        return (<PlayCircle className="inline me-2" size={20}/>)
-        break;
-      case true:
-        return (<PauseCircle className="inline me-2" size={20}/>)
-        break;
-      default:
-        break;
-    }
-  }
+    return isActive ? <PauseCircle className="inline me-2" size={20}/> : <PlayCircle className="inline me-2" size={20}/>;
+  };
 
   const [selectedOption, setSelectedOption] = useState(timerOptions[0]);
   const [minutes, setMinutes] = useState(selectedOption.minutes);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [timerInterval, setTimerInterval] = useState(null); // Declare timerInterval state variable
+
+  const pauseAudio = new Audio(pauseSound);
+  const playAudio = new Audio(playSound);
+  const timerEndAudio = new Audio(timerEndSound);
+  const optionChangeAudio = new Audio(optionChangeSound);
 
   useEffect(() => {
     setMinutes(selectedOption.minutes);
     setSeconds(0);
   }, [selectedOption]);
 
-  useEffect(() => {
-    let interval;
-
-    if (isActive) {
-      interval = setInterval(() => {
-        if (seconds === 0) {
-          if (minutes === 0) {
-            clearInterval(interval);
-            setIsActive(false);
-          } else {
-            setMinutes((prevMinutes) => prevMinutes - 1);
-            setSeconds(59);
-          }
-        } else {
-          setSeconds((prevSeconds) => prevSeconds - 1);
-        }
-      }, 1000);
-    } else {
-      clearInterval(interval);
-    }
-
-    return () => clearInterval(interval);
-  }, [isActive, minutes, seconds, selectedOption]);
+  const toggleTimer = () => {
+    setIsActive((prevIsActive) => {
+      if (!prevIsActive) {
+        playAudio.currentTime = 0; // Reset audio to the beginning
+        playAudio.play(); // Play audio
+        const intervalId = setInterval(() => {
+          setSeconds((prevSeconds) => {
+            if (prevSeconds === 0) {
+              if (minutes === 0) {
+                clearInterval(intervalId); // Stop the timer
+                setIsActive(false); // Update isActive state
+                timerEndAudio.play();
+                return 0;
+              }
+              setMinutes((prevMinutes) => prevMinutes - 1);
+              return 59;
+            }
+            return prevSeconds - 1;
+          });
+        }, 1000);
+        setTimerInterval(intervalId); // Set the interval to state
+        return true;
+      } else {
+        clearInterval(timerInterval); // Clear the interval when pausing
+        pauseAudio.play();
+        return false;
+      }
+    });
+  };
 
   const handleOptionClick = (option) => {
     if (option.label !== selectedOption.label) {
       setSelectedOption(option);
+      optionChangeAudio.play();
+      if (isActive) {
+        clearInterval(timerInterval); // Clear the interval when changing the option
+        setIsActive(false); // Update isActive state
+      }
     }
   };
 
-  const toggleTimer = () => {
-    setIsActive((prevIsActive) => !prevIsActive);
-  };
-
   const resetTimer = () => {
-    setIsActive(false);
-    setMinutes(selectedOption.minutes);
-    setSeconds(0);
+    clearInterval(timerInterval); // Clear the interval
+    setIsActive(false); // Update isActive state
+    setMinutes(selectedOption.minutes); // Reset minutes to the default value
+    setSeconds(0); // Reset seconds to 0
   };
 
   const percentageRemaining = ((minutes * 60 + seconds) / (selectedOption.minutes * 60)) * 100;
+
+  const toggleSettingsModal = () => {
+    setShowSettingsModal(!showSettingsModal);
+  };
+
+  const handleSettingsClose = () => {
+    setShowSettingsModal(false);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -109,7 +125,7 @@ const PomodoroTimer = () => {
         </div>
         <div className="relative mt-16 mb-8">
           <CircularProgressbar
-          className="select-none"
+            className="select-none"
             value={percentageRemaining}
             text={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
             styles={buildStyles({
@@ -138,6 +154,20 @@ const PomodoroTimer = () => {
             <RotateCcw className="inline me-2" size={15}/>Reset
           </button>
         </div>
+        
+        <div className="absolute top-0 right-0 mt-20 mr-0 cursor-pointer" onClick={toggleSettingsModal}>
+          <Settings size={24} />
+        </div>
+
+        {showSettingsModal && (
+          <SettingsModal
+            timerOptions={timerOptions}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            optionChangeAudio={optionChangeAudio}
+            onClose={handleSettingsClose}
+          />
+        )}
       </div>
     </div>
   );
