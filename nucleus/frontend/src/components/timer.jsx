@@ -36,7 +36,7 @@ const PomodoroTimer = () => {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
-  // Create audio objects
+  
   const pauseAudio = new Audio(pauseSound);
   const playAudio = new Audio(playSound);
   const timerEndAudio = new Audio(timerEndSound);
