@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Armchair, Coffee, NotebookPen, PauseCircle, PlayCircle, RotateCcw, Settings } from 'lucide-react';
-import pauseSound from '../../public/sounds/pauseTimer.mp3';
-import playSound from '../../public/sounds/startTimer.mp3';
-import timerEndSound from '../../public/sounds/timesUp.mp3';
-import optionChangeSound from '../../public/sounds/optionChange.mp3';
+import pauseSound from '../../src/sounds/pauseTimer.mp3';
+import playSound from '../../src/sounds/startTimer.mp3';
+import timerEndSound from '../../src/sounds/timesUp.mp3';
+import optionChangeSound from '../../src/sounds/optionChange.mp3';
 import SettingsModal from './SettingsModal';
 
 const PomodoroTimer = () => {
