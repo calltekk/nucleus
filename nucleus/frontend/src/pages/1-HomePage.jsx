@@ -9,7 +9,7 @@ function HomePage() {
   	return (
 		<>
 			<Header />
-			<div id="home" className="h-dvh border-2 grid grid-rows-12 grid-cols-12 gap-5">
+			<div id="home" className="h-dvh grid grid-rows-12 grid-cols-12 gap-5">
 				<TaskList />	
 				<Timer />
 			</div>
