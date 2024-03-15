@@ -108,7 +108,7 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="col-start-7 col-span-5 row-start-3 row-span-8 flex flex-col items-center justify-center">
       <div className="p-4 mb-8 rounded-md text-center relative">
         <div className="flex space-x-8 mb-8">
           {timerOptions.map((option) => (
@@ -133,10 +133,10 @@ const PomodoroTimer = () => {
               strokeLinecap: 'butt',
               textSize: '16px',
               pathTransitionDuration: 0.5,
-              pathColor: `rgba(62, 152, 199, ${percentageRemaining / 100})`,
+              pathColor: `rgba(225,70,76, ${percentageRemaining / 100})`,
               textColor: '#f88',
-              trailColor: '#d6d6d6',
-              backgroundColor: '#3e98c7',
+              trailColor: '#F1F0EE',
+              backgroundColor: '',
             })}
           />
         </div>
