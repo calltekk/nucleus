@@ -112,8 +112,8 @@ const PomodoroTimer = () => {
           {timerOptions.map((option) => (
             <button
               key={option.label}
-              className={`hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 text-white font-bold py-2 px-6 rounded-full ${
-                option.label === selectedOption.label ? 'bg-blue-700' : ''
+              className={`hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full ${
+                option.label === selectedOption.label ? "bg-blue-700 text-slate-50" : ''
               }`}
               onClick={() => handleOptionClick(option)}
             >
@@ -140,13 +140,13 @@ const PomodoroTimer = () => {
         </div>
         <div className="flex justify-center space-x-8 mt-16">
           <button
-            className="hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 text-white font-bold py-2 px-6 rounded-full"
+            className="hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full"
             onClick={toggleTimer}
           >
             {startIcon(isActive)}{isActive ? 'Pause' : 'Start'}
           </button>
           <button
-            className="hover:bg-red-500 border-2 border-red-500 hover:border-red-700 duration-500 text-white font-bold py-2 px-6 rounded-full"
+            className="hover:bg-red-500 border-2 border-red-500 hover:border-red-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full"
             onClick={resetTimer}
           >
             <RotateCcw className="inline me-2" size={15}/>Reset

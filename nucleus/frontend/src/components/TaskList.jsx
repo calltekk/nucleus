@@ -121,8 +121,8 @@ useEffect(() => {
                           <span className="rounded-full border-2 border-slate-500 w-full px-5 py-2">{task.text}</span>
                         )}
                         <div className="flex justify-start items-center">
-                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-blue-500 hover:bg-sky-500 rounded-full p-2 my-auto text-slate-50" onClick={() => editTask(index)}><PenLine size={15} /></button>
-                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-green-500 hover:bg-emerald-600 rounded-full p-2 my-auto text-slate-50" onClick={() => removeTask(task.id)}><CircleCheckBig size={15}/></button>
+                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-blue-500 hover:bg-sky-500 rounded-full p-2 my-auto dark:text-slate-50 hover:text-slate-50" onClick={() => editTask(index)}><PenLine size={15} /></button>
+                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-green-500 hover:bg-emerald-600 rounded-full p-2 my-auto dark:text-slate-50 hover:text-slate-50" onClick={() => removeTask(task.id)}><CircleCheckBig size={15}/></button>
                         </div>
                       </div>
                     )}
@@ -141,9 +141,9 @@ useEffect(() => {
       {isModalOpen && (
         <div className="task-modal my-3">
           <div className="modal-content flex items-center">
-            <span className="close me-3 rounded-full p-2 border-2 border-rose-800 hover:bg-rose-500 duration-500 cursor-pointer text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
+            <span className="close me-3 rounded-full p-2 border-2 border-rose-800 hover:bg-rose-500 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
             <input
-              className="py-2 px-5 rounded-full w-fit"
+              className="py-2 px-5 rounded-full w-fit border-2"
               type="text"
               placeholder="Enter Task"
               value={newTaskText}
@@ -151,7 +151,7 @@ useEffect(() => {
               onKeyDown={handleKeyDown}
               ref={inputRef}
             />
-            <button className="ms-3 rounded-full p-2 border-2 border-green-500 hover:bg-emerald-600 duration-500 cursor-pointer text-slate-50" onClick={editingTaskIndex !== null ? updateTask : addTask}>
+            <button className="ms-3 rounded-full p-2 border-2 border-green-500 hover:bg-emerald-600 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={editingTaskIndex !== null ? updateTask : addTask}>
               {updateAddButton(editingTaskIndex)}
             </button>
           </div>
