@@ -38,7 +38,7 @@ const PomodoroTimer = () => {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [timerInterval, setTimerInterval] = useState(null); // Declare timerInterval state variable
+  const [timerInterval, setTimerInterval] = useState(null);
 
   const pauseAudio = new Audio(pauseSound);
   const playAudio = new Audio(playSound);
@@ -65,22 +65,22 @@ const PomodoroTimer = () => {
 
   useEffect(() => {
     if (isActive && minutes === 0 && seconds === 0) {
-      clearInterval(timerInterval); // Stop the timer if both minutes and seconds are zero
-      setIsActive(false); // Update isActive state
+      clearInterval(timerInterval);
+      setIsActive(false);
       timerEndAudio.play();
     }
   }, [isActive, minutes, seconds, timerInterval, timerEndAudio]);
 
   const toggleTimer = () => {
     if (!isActive) {
-      playAudio.currentTime = 0; // Reset audio to the beginning
-      playAudio.play(); // Play audio
-      const totalSeconds = minutes * 60 + seconds; // Convert minutes and seconds to total seconds
+      playAudio.currentTime = 0;
+      playAudio.play();
+      let remainingSeconds = minutes * 60 + seconds;
       const intervalId = setInterval(() => {
-        if (totalSeconds <= 0) {
-          clearInterval(intervalId); // Stop the timer
-          setIsActive(false); // Update isActive state
-          timerEndAudio.play(); // Play timer end sound
+        if (remainingSeconds <= 0) {
+          clearInterval(intervalId);
+          setIsActive(false);
+          timerEndAudio.play();
           return;
         }
         setSeconds(prevSeconds => {
@@ -90,12 +90,12 @@ const PomodoroTimer = () => {
           }
           return newSeconds;
         });
-        totalSeconds -= 1; // Decrement totalSeconds
+        remainingSeconds -= 1;
       }, 1000);
-      setTimerInterval(intervalId); // Set the interval to state
+      setTimerInterval(intervalId);
       setIsActive(true);
     } else {
-      clearInterval(timerInterval); // Clear the interval when pausing
+      clearInterval(timerInterval);
       pauseAudio.play();
       setIsActive(false);
     }
@@ -107,17 +107,17 @@ const PomodoroTimer = () => {
       setSelectedOption(option);
       optionChangeAudio.play();
       if (isActive) {
-        clearInterval(timerInterval); // Clear the interval when changing the option
-        setIsActive(false); // Update isActive state
+        clearInterval(timerInterval);
+        setIsActive(false);
       }
     }
   };
 
   const resetTimer = () => {
-    clearInterval(timerInterval); // Clear the interval
-    setIsActive(false); // Update isActive state
-    setMinutes(initialMinutes); // Reset minutes to the initial value
-    setSeconds(0); // Reset seconds to 0
+    clearInterval(timerInterval);
+    setIsActive(false);
+    setMinutes(initialMinutes);
+    setSeconds(0);
   };
 
   const percentageRemaining = ((minutes * 60 + seconds) / (initialMinutes * 60)) * 100;
