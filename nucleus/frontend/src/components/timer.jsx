@@ -33,7 +33,8 @@ const PomodoroTimer = () => {
   };
 
   const [selectedOption, setSelectedOption] = useState(timerOptions[0]);
-  const [minutes, setMinutes] = useState(selectedOption.minutes);
+  const [initialMinutes, setInitialMinutes] = useState(timerOptions[0].minutes);
+  const [minutes, setMinutes] = useState(timerOptions[0].minutes);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -45,39 +46,61 @@ const PomodoroTimer = () => {
   const optionChangeAudio = new Audio(optionChangeSound);
 
   useEffect(() => {
+    console.log("Selected option:", selectedOption);
+    console.log("Initial minutes:", initialMinutes);
+    console.log("Minutes:", minutes);
+    console.log("Seconds:", seconds);
+  }, [selectedOption, initialMinutes, minutes, seconds]);
+
+  useEffect(() => {
+    console.log("isActive:", isActive);
+    console.log("Timer interval:", timerInterval);
+  }, [isActive, timerInterval]);
+
+  useEffect(() => {
+    setInitialMinutes(selectedOption.minutes);
     setMinutes(selectedOption.minutes);
     setSeconds(0);
   }, [selectedOption]);
 
+  useEffect(() => {
+    if (isActive && minutes === 0 && seconds === 0) {
+      clearInterval(timerInterval); // Stop the timer if both minutes and seconds are zero
+      setIsActive(false); // Update isActive state
+      timerEndAudio.play();
+    }
+  }, [isActive, minutes, seconds, timerInterval, timerEndAudio]);
+
   const toggleTimer = () => {
-    setIsActive((prevIsActive) => {
-      if (!prevIsActive) {
-        playAudio.currentTime = 0; // Reset audio to the beginning
-        playAudio.play(); // Play audio
-        const intervalId = setInterval(() => {
-          setSeconds((prevSeconds) => {
-            if (prevSeconds === 0) {
-              if (minutes === 0) {
-                clearInterval(intervalId); // Stop the timer
-                setIsActive(false); // Update isActive state
-                timerEndAudio.play();
-                return 0;
-              }
-              setMinutes((prevMinutes) => prevMinutes - 1);
-              return 59;
-            }
-            return prevSeconds - 1;
-          });
-        }, 1000);
-        setTimerInterval(intervalId); // Set the interval to state
-        return true;
-      } else {
-        clearInterval(timerInterval); // Clear the interval when pausing
-        pauseAudio.play();
-        return false;
-      }
-    });
+    if (!isActive) {
+      playAudio.currentTime = 0; // Reset audio to the beginning
+      playAudio.play(); // Play audio
+      const totalSeconds = minutes * 60 + seconds; // Convert minutes and seconds to total seconds
+      const intervalId = setInterval(() => {
+        if (totalSeconds <= 0) {
+          clearInterval(intervalId); // Stop the timer
+          setIsActive(false); // Update isActive state
+          timerEndAudio.play(); // Play timer end sound
+          return;
+        }
+        setSeconds(prevSeconds => {
+          const newSeconds = prevSeconds === 0 ? 59 : prevSeconds - 1;
+          if (newSeconds === 59) {
+            setMinutes(prevMinutes => Math.max(0, prevMinutes - 1));
+          }
+          return newSeconds;
+        });
+        totalSeconds -= 1; // Decrement totalSeconds
+      }, 1000);
+      setTimerInterval(intervalId); // Set the interval to state
+      setIsActive(true);
+    } else {
+      clearInterval(timerInterval); // Clear the interval when pausing
+      pauseAudio.play();
+      setIsActive(false);
+    }
   };
+  
 
   const handleOptionClick = (option) => {
     if (option.label !== selectedOption.label) {
@@ -93,11 +116,11 @@ const PomodoroTimer = () => {
   const resetTimer = () => {
     clearInterval(timerInterval); // Clear the interval
     setIsActive(false); // Update isActive state
-    setMinutes(selectedOption.minutes); // Reset minutes to the default value
+    setMinutes(initialMinutes); // Reset minutes to the initial value
     setSeconds(0); // Reset seconds to 0
   };
 
-  const percentageRemaining = ((minutes * 60 + seconds) / (selectedOption.minutes * 60)) * 100;
+  const percentageRemaining = ((minutes * 60 + seconds) / (initialMinutes * 60)) * 100;
 
   const toggleSettingsModal = () => {
     setShowSettingsModal(!showSettingsModal);
