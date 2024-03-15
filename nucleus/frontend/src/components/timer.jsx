@@ -51,14 +51,30 @@ const PomodoroTimer = () => {
   const toggleTimer = () => {
     setIsActive((prevIsActive) => {
       if (!prevIsActive) {
-        playAudio.play();
+        playAudio.currentTime = 0; // Reset audio to the beginning
+        playAudio.play(); // Play audio
+        const timerInterval = setInterval(() => {
+          setSeconds((prevSeconds) => {
+            if (prevSeconds === 0) {
+              if (minutes === 0) {
+                clearInterval(timerInterval);
+                timerEndAudio.play();
+                return 0;
+              }
+              setMinutes((prevMinutes) => prevMinutes - 1);
+              return 59;
+            }
+            return prevSeconds - 1;
+          });
+        }, 1000);
+        return timerInterval;
       } else {
+        clearInterval(prevIsActive);
         pauseAudio.play();
       }
-      return !prevIsActive;
+      return false;
     });
   };
-
   useEffect(() => {
     if (minutes === 0 && seconds === 0 && isActive) {
       setIsActive(false);
