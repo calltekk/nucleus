@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      sans: ['Cabinet Grotesk', 'sans-serif'],
+      sans: ['Inter', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
   },
