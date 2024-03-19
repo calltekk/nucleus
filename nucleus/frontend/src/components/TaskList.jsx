@@ -9,24 +9,25 @@ const TaskList = () => {
     return storedTasks ? JSON.parse(storedTasks) : [];// state for empty array of tasks
   });
 
-  // store completed tasks
+  // Set completed tasks to localStorage
   const [completedTasks, setCompletedTasks] = useState(() => {
     const storedCompletedTasks = localStorage.getItem("completedTasks");
     return storedCompletedTasks ? JSON.parse(storedCompletedTasks) : [];
   });
+
 
   const [newTaskText, setNewTaskText] = useState(""); // set initial text of a new task as an empty string
   const [isModalOpen, setIsModalOpen] = useState(false); // set state of modal open to false
   const [editingTaskIndex, setEditingTaskIndex] = useState(null); // state for editing tasks
   const inputRef = useRef(null);
 
- // Function to update local storage with tasks
+ // Effect to store tasks in local storage
  useEffect(() => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }, [tasks]);
 
- // Function to update local storage with completed tasks
-useEffect(() => {
+ // Effect to store completed tasks in local storage
+ useEffect(() => {
   localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
 }, [completedTasks]);
 
@@ -58,9 +59,12 @@ useEffect(() => {
   };
 
   const removeTask = (taskId) => {
-    const taskToRemove = tasks.find(task => task.id === taskId);
-    setCompletedTasks([...completedTasks, taskToRemove]); // Store completed task
-    setTasks(tasks.filter(task => task.id !== taskId)); // Remove task from tasks
+    const removedTask = tasks.find(task => task.id === taskId);
+    setTasks(tasks.filter(task => task.id !== taskId));
+    setCompletedTasks([...completedTasks, removedTask]); // Add removed task to completed tasks
+  
+    // Update completed tasks in local storage
+    localStorage.setItem("completedTasks", JSON.stringify([...completedTasks, removedTask]));
   };
 
   const editTask = (index) => {
@@ -160,8 +164,14 @@ useEffect(() => {
           </Droppable>
         </DragDropContext>
       </div>
-
-
+      <div className="completed-tasks">
+      <h4>Completed Tasks</h4>
+      <ul>
+        {completedTasks.map((task) => (
+          <li key={task.id}>{task.text}</li>
+        ))}
+      </ul>
+    </div>
 
       {/* Modal */}
       {isModalOpen && (
