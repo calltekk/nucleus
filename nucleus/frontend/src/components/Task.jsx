@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
 function Task(props) {
   return (
-    <div className='task'>
+    <div className="task">
       <h2>Title:{props.title}</h2>
       <h2>ID:{props.taskID}</h2>
       <p>Date:{props.tDate}</p>
