@@ -137,8 +137,8 @@ const PomodoroTimer = () => {
           {timerOptions.map((option) => (
             <button
               key={option.label}
-              className={`hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full ${
-                option.label === selectedOption.label ? "bg-blue-700 text-slate-50" : ''
+              className={`hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full ${
+                option.label === selectedOption.label ? "bg-[#4a417b] dark:bg-[#e6c5ac] text-slate-50 dark:text-slate-800" : ''
               }`}
               onClick={() => handleOptionClick(option)}
             >
@@ -165,13 +165,13 @@ const PomodoroTimer = () => {
         </div>
         <div className="flex justify-center space-x-8 mt-16">
           <button
-            className="hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full"
+            className="hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full"
             onClick={toggleTimer}
           >
             {startIcon(isActive)}{isActive ? 'Pause' : 'Start'}
           </button>
           <button
-            className="hover:bg-red-500 border-2 border-red-500 hover:border-red-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full"
+            className="hover:bg-[#b4529c] border-2 border-[#b4529c] duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full"
             onClick={resetTimer}
           >
             <RotateCcw className="inline me-2" size={15}/>Reset
