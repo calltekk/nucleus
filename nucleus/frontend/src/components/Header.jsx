@@ -10,8 +10,8 @@ function Header() {
         </div>
         <div className="flex-none">
             <ul className="flex text-md px-5 gap-x-4">
-                <li><a className="px-5 py-3 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 rounded-lg duration-500 cursor-pointer">Settings</a></li> 
-                <li><a className="px-5 py-3 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 rounded-lg duration-500 cursor-pointer">Stats</a></li> 
+                <li><a className="px-5 py-3 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 hover:dark:text-slate-50 rounded-lg duration-500 cursor-pointer">Settings</a></li> 
+                <li><a className="px-5 py-3 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 hover:dark:text-slate-50 rounded-lg duration-500 cursor-pointer">Stats</a></li> 
             </ul>
         </div>
     </div>
