@@ -10,7 +10,7 @@
 	:root{
 		background: 
 			linear-gradient(20deg, #627bb4, transparent), 
-			url(https://grainy-gradients.vercel.app/noise.svg); 
+			url(../src/assets/images/nnnoise.svg); 
 	}
 }
 
@@ -18,7 +18,7 @@
    :root{
 		background: 
 			linear-gradient(20deg, #315a7b, transparent), 
-			url(https://grainy-gradients.vercel.app/noise.svg); 
+			url(../src/assets/images/nnnoise.svg); 
    }
 }
 
