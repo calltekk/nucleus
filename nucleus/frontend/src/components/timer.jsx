@@ -171,7 +171,7 @@ const PomodoroTimer = () => {
             {startIcon(isActive)}{isActive ? 'Pause' : 'Start'}
           </button>
           <button
-            className="hover:bg-[#b4529c] border-2 border-[#b4529c] duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full"
+            className="hover:bg-[#b4529c] border-2 border-[#b4529c] dark:border-[#cc7272] dark:hover:bg-[#cc7272] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full"
             onClick={resetTimer}
           >
             <RotateCcw className="inline me-2" size={15}/>Reset
