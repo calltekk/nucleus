@@ -2,19 +2,19 @@ import React, { useState, useRef, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { CircleCheckBig , CircleX, CirclePlus, Save, PenLine } from 'lucide-react';
 
-const TaskList = () => {
+const TaskList = ({ completedTasksProp }) => {
+  
   const [tasks, setTasks] = useState(() => {
     // Retrieve tasks from local storage or default to an empty array
     const storedTasks = localStorage.getItem("tasks");
     return storedTasks ? JSON.parse(storedTasks) : [];// state for empty array of tasks
   });
 
-  // Set completed tasks to localStorage
-  const [completedTasks, setCompletedTasks] = useState(() => {
-    const storedCompletedTasks = localStorage.getItem("completedTasks");
-    return storedCompletedTasks ? JSON.parse(storedCompletedTasks) : [];
-  });
-
+ // Set completed tasks to localStorage
+ const [completedTasks, setCompletedTasks] = useState(() => {
+  const storedCompletedTasks = localStorage.getItem("completedTasks");
+  return storedCompletedTasks ? JSON.parse(storedCompletedTasks) : completedTasksProp || [];
+});
 
   const [newTaskText, setNewTaskText] = useState(""); // set initial text of a new task as an empty string
   const [isModalOpen, setIsModalOpen] = useState(false); // set state of modal open to false
@@ -26,10 +26,10 @@ const TaskList = () => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }, [tasks]);
 
- // Effect to store completed tasks in local storage
- useEffect(() => {
-  localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
-}, [completedTasks]);
+  // Effect to store completed tasks in local storage
+  useEffect(() => {
+    localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+  }, [completedTasks]);
 
 useEffect(() => {
   if (isModalOpen && inputRef.current) {
@@ -164,14 +164,6 @@ useEffect(() => {
           </Droppable>
         </DragDropContext>
       </div>
-      <div className="completed-tasks">
-      <h4>Completed Tasks</h4>
-      <ul>
-        {completedTasks.map((task) => (
-          <li key={task.id}>{task.text}</li>
-        ))}
-      </ul>
-    </div>
 
       {/* Modal */}
       {isModalOpen && (
