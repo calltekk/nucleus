@@ -2,11 +2,11 @@
   stroke: red;
 }
 .CircularProgressbar-trail {
-  stroke: red;
+  stroke: gray;
 }
 .CircularProgressbar-text {
-  fill: red;
+  fill: yellow;
 }
 .CircularProgressbar-background {
-  fill: red;
+  fill: green;
 }

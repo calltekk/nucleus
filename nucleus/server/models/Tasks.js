@@ -1,9 +1,18 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 // Create a tasks schema for the database fields
 const TaskSchema = new mongoose.Schema({ 
-        index: Number,
-        newTaskText: String
+        // index: Number,
+        // newTaskText: String
+        newTaskText: {
+                type: String,
+                required: true
+        },
+        user_id: {
+                type: String,
+                required: true
+        }
 })
 
-export const TaskModel = mongoose.model('tasks', TaskSchema);
+module.exports = mongoose.model('tasks', TaskSchema)

@@ -18,18 +18,18 @@ const PomodoroTimer = () => {
   const labelIcon = (label) => {
     switch (label) {
       case "Pomodoro":
-        return (<NotebookPen className="inline me-2" size={18}/>);
+        return (<NotebookPen className="inline me-2" size={20}/>);
       case "Short Break":
-        return (<Coffee className="inline me-2" size={18}/>);
+        return (<Coffee className="inline me-2" size={20}/>);
       case "Long Break":
-        return (<Armchair className="inline me-2" size={18}/>);
+        return (<Armchair className="inline me-2" size={20}/>);
       default:
         break;
     }
   };
 
   const startIcon = (isActive) => {
-    return isActive ? <PauseCircle className="inline me-2" size={18}/> : <PlayCircle className="inline me-2" size={18}/>;
+    return isActive ? <PauseCircle className="inline me-2" size={20}/> : <PlayCircle className="inline me-2" size={20}/>;
   };
 
   const [selectedOption, setSelectedOption] = useState(timerOptions[0]);
@@ -100,6 +100,7 @@ const PomodoroTimer = () => {
       setIsActive(false);
     }
   };
+  
 
   const handleOptionClick = (option) => {
     if (option.label !== selectedOption.label) {
@@ -130,14 +131,14 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div className="col-start-7 col-span-5 row-start-3 row-span-8 flex flex-col items-center justify-center mt-n10"> {/* Adjust the negative margin (mt-n1) as needed */}
+    <div className="flex flex-col items-center justify-center">
       <div className="p-4 mb-8 rounded-md text-center relative">
         <div className="flex space-x-8 mb-8">
           {timerOptions.map((option) => (
             <button
               key={option.label}
-              className={`hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full text-sm ${
-                option.label === selectedOption.label ? "bg-blue-700 text-slate-50" : ''
+              className={`hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 text-white font-bold py-2 px-6 rounded-full ${
+                option.label === selectedOption.label ? 'bg-blue-700' : ''
               }`}
               onClick={() => handleOptionClick(option)}
             >
@@ -153,33 +154,32 @@ const PomodoroTimer = () => {
             styles={buildStyles({
               rotation: 0,
               strokeLinecap: 'butt',
-              textSize: '14px',
+              textSize: '16px',
               pathTransitionDuration: 0.5,
-              pathColor: `rgba(225,70,76, ${percentageRemaining / 100})`,
+              pathColor: `rgba(62, 152, 199, ${percentageRemaining / 100})`,
               textColor: '#f88',
-              trailColor: '#F1F0EE',
-              backgroundColor: '',
-              width: '130px', // Adjust the width as needed
+              trailColor: '#d6d6d6',
+              backgroundColor: '#3e98c7',
             })}
           />
         </div>
-        <div className="flex justify-center space-x-8 mt-10"> {/* Adjust margin-top here */}
+        <div className="flex justify-center space-x-8 mt-16">
           <button
-            className="hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full text-sm"
+            className="hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 text-white font-bold py-2 px-6 rounded-full"
             onClick={toggleTimer}
           >
             {startIcon(isActive)}{isActive ? 'Pause' : 'Start'}
           </button>
           <button
-            className="hover:bg-red-500 border-2 border-red-500 hover:border-red-700 duration-500 dark:text-slate-50 hover:text-slate-50 font-bold py-2 px-6 rounded-full text-sm"
+            className="hover:bg-red-500 border-2 border-red-500 hover:border-red-700 duration-500 text-white font-bold py-2 px-6 rounded-full"
             onClick={resetTimer}
           >
-            <RotateCcw className="inline me-2" size={18}/>Reset
+            <RotateCcw className="inline me-2" size={15}/>Reset
           </button>
         </div>
         
         <div className="absolute top-0 right-0 mt-20 mr-0 cursor-pointer" onClick={toggleSettingsModal}>
-          <Settings size={20} />
+          <Settings size={24} />
         </div>
 
         {showSettingsModal && (

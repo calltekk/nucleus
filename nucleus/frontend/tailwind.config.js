@@ -7,12 +7,9 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      sans: ['Inter', 'sans-serif'],
+      sans: ['Cabinet Grotesk', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
   },
   plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["dark"],
-  },
 }
