@@ -145,59 +145,45 @@ useEffect(() => {
   }
 
   return (
-    <div> {user && (   
-      <h3 className="text-5xl mb-5">Task List</h3>
-     )}  
+    <div className="col-start-2 col-span-4 row-start-2 row-span-8 overflow-auto bg-[#4a417b] bg-opacity-10 dark:bg-[#e6c5ac] dark:bg-opacity-10 p-11 rounded-xl hover:bg-opacity-15 duration-500">
+      <div className="flex justify-between items-center">
+        <h3 className="text-5xl me-20 dark:text-slate-300">Task List</h3>
+        <button className="border-2 me-5 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /></button>
+      </div>
       <div className="task-container max-h-dvh my-3 overflow-auto">
-        {user && (
-        <div id="task-db-container">
-          {
-            tasks.map((task, index)=>{ 
-              return <div className="tasklist" key={task.id}>
-                        <DragDropContext onDragEnd={onDragEnd}>
-                          <Droppable droppableId="task-list">
-                            {(provided) => (
-                              <div
-                                className="task-container"
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                              >
-                                {/* {tasks.map((task, index) => ( */}
-                                  
-                                  <Draggable key={task._id} draggableId={task._id} index={index}>
-                                    {(provided) => (
-                                      <div
-                                        className="task-item my-3 pe-5 py-1 flex justify-between items-center group"
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                      >
-                                        {editingTaskIndex === index ? (
-                                          <input
-                                            className="rounded-full border-2 border-slate-500 w-full px-5 py-2"
-                                            type="text"
-                                            value={newTaskText}
-                                            onChange={(e) => setNewTaskText(e.target.value)}
-                                            onKeyDown={(e)=>{handleKeyDown(e, task._id)}}
-                                            ref={inputRef}
-                                          />
-                                        ) : (
-                                          <span className="rounded-full border-2 border-slate-500 w-full px-5 py-2">{task.newTaskText}</span>
-                                        )}
-                                        <div className="flex justify-start items-center">
-                                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-blue-500 hover:bg-sky-500 rounded-full p-2 my-auto text-slate-50" onClick={() => editTask(index, task._id)}><PenLine size={15} /></button>
-                                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-green-500 hover:bg-emerald-600 rounded-full p-2 my-auto text-slate-50" onClick={() => handleDelete(task._id)}><CircleCheckBig size={15}/></button>
-                                        </div>
-                                      </div>
-                                    )}
-                                  </Draggable>
-                                {/* ))} */}
-                                {provided.placeholder}
-                              </div>
-                            )}
-                          </Droppable>
-                        </DragDropContext>
-                              
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="task-list">
+            {(provided) => (
+              <div
+                className="task-container"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {tasks.map((task, index) => (
+                  <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                    {(provided) => (
+                      <div
+                        className="task-item my-3 pe-5 py-1 flex justify-between items-center group dark:text-slate-300"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        {editingTaskIndex === index ? (
+                          <input
+                            className="rounded-lg border-2 border-slate-500 w-full px-5 py-2"
+                            type="text"
+                            value={newTaskText}
+                            onChange={(e) => setNewTaskText(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            ref={inputRef}
+                          />
+                        ) : (
+                          <p className="rounded-lg border-2 border-slate-500 dark:border-slate-400 w-full px-5 py-2">{task.text}</p>   
+                        )}
+                        <div className="flex justify-start items-center">
+                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-green-500 hover:bg-emerald-600 rounded-full p-2 my-auto dark:text-slate-50 hover:text-slate-50" onClick={() => removeTask(task.id)}><CircleCheckBig size={15}/></button>
+                          <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-blue-500 hover:bg-sky-500 rounded-full p-2 my-auto dark:text-slate-50 hover:text-slate-50" onClick={() => editTask(index)}><PenLine size={15} /></button>
+                        </div>
                       </div>
             })
           }
