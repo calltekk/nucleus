@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const TaskList = () => {
+<<<<<<< HEAD
   const {id} = useParams(); //get task id
   const [taskData, setTaskData] = useState({
     id:'',
@@ -12,10 +13,22 @@ const TaskList = () => {
   }); //set id and index outside map
   const [tasksdb, setTasksdb] = useState([]);
   const [tasks, setTasks] = useState([]); // state for empty array of tasks
+=======
+  const [tasks, setTasks] = useState(() => {
+    // Retrieve tasks from local storage or default to an empty array
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];// state for empty array of tasks
+  });
+>>>>>>> 77ffba75ceef358d87ff7c38fa0da1dae04f190f
   const [newTaskText, setNewTaskText] = useState(""); // set initial text of a new task as an empty string
   const [isModalOpen, setIsModalOpen] = useState(false); // set state of modal open to false
   const [editingTaskIndex, setEditingTaskIndex] = useState(null); // state for editing tasks
   const inputRef = useRef(null);
+
+ // Function to update local storage with tasks
+ useEffect(() => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}, [tasks]);
 
 useEffect(() => {
   if (isModalOpen && inputRef.current) {
