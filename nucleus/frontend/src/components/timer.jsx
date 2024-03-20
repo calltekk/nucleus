@@ -18,18 +18,18 @@ const PomodoroTimer = () => {
   const labelIcon = (label) => {
     switch (label) {
       case "Pomodoro":
-        return (<NotebookPen className="inline me-2" size={20}/>);
+        return (<NotebookPen className="inline me-2" size={18}/>);
       case "Short Break":
-        return (<Coffee className="inline me-2" size={20}/>);
+        return (<Coffee className="inline me-2" size={18}/>);
       case "Long Break":
-        return (<Armchair className="inline me-2" size={20}/>);
+        return (<Armchair className="inline me-2" size={18}/>);
       default:
         break;
     }
   };
 
   const startIcon = (isActive) => {
-    return isActive ? <PauseCircle className="inline me-2" size={20}/> : <PlayCircle className="inline me-2" size={20}/>;
+    return isActive ? <PauseCircle className="inline me-2" size={18}/> : <PlayCircle className="inline me-2" size={18}/>;
   };
 
   const [selectedOption, setSelectedOption] = useState(timerOptions[0]);
@@ -100,7 +100,6 @@ const PomodoroTimer = () => {
       setIsActive(false);
     }
   };
-  
 
   const handleOptionClick = (option) => {
     if (option.label !== selectedOption.label) {
@@ -131,19 +130,14 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="col-start-7 col-span-5 row-start-3 row-span-8 flex flex-col items-center justify-center mt-n10"> {/* Adjust the negative margin (mt-n1) as needed */}
       <div className="p-4 mb-8 rounded-md text-center relative">
         <div className="flex space-x-8 mb-8">
           {timerOptions.map((option) => (
             <button
               key={option.label}
-<<<<<<< HEAD
-              className={`hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 text-white font-bold py-2 px-6 rounded-full ${
-                option.label === selectedOption.label ? 'bg-blue-700' : ''
-=======
               className={`hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full ${
                 option.label === selectedOption.label ? "bg-[#4a417b] dark:bg-[#e6c5ac] text-slate-50 dark:text-slate-800" : ''
->>>>>>> 7c2a19d53b135471ab1257626d11cd57f15c7741
               }`}
               onClick={() => handleOptionClick(option)}
             >
@@ -159,40 +153,33 @@ const PomodoroTimer = () => {
             styles={buildStyles({
               rotation: 0,
               strokeLinecap: 'butt',
-              textSize: '16px',
+              textSize: '14px',
               pathTransitionDuration: 0.5,
-              pathColor: `rgba(62, 152, 199, ${percentageRemaining / 100})`,
+              pathColor: `rgba(225,70,76, ${percentageRemaining / 100})`,
               textColor: '#f88',
-              trailColor: '#d6d6d6',
-              backgroundColor: '#3e98c7',
+              trailColor: '#F1F0EE',
+              backgroundColor: '',
+              width: '130px', // Adjust the width as needed
             })}
           />
         </div>
-        <div className="flex justify-center space-x-8 mt-16">
+        <div className="flex justify-center space-x-8 mt-10"> {/* Adjust margin-top here */}
           <button
-<<<<<<< HEAD
-            className="hover:bg-blue-500 border-2 border-blue-500 hover:border-blue-700 duration-500 text-white font-bold py-2 px-6 rounded-full"
-=======
             className="hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full"
->>>>>>> 7c2a19d53b135471ab1257626d11cd57f15c7741
             onClick={toggleTimer}
           >
             {startIcon(isActive)}{isActive ? 'Pause' : 'Start'}
           </button>
           <button
-<<<<<<< HEAD
-            className="hover:bg-red-500 border-2 border-red-500 hover:border-red-700 duration-500 text-white font-bold py-2 px-6 rounded-full"
-=======
             className="hover:bg-[#b4529c] border-2 border-[#b4529c] dark:border-[#cc7272] dark:hover:bg-[#cc7272] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full"
->>>>>>> 7c2a19d53b135471ab1257626d11cd57f15c7741
             onClick={resetTimer}
           >
-            <RotateCcw className="inline me-2" size={15}/>Reset
+            <RotateCcw className="inline me-2" size={18}/>Reset
           </button>
         </div>
         
         <div className="absolute top-0 right-0 mt-20 mr-0 cursor-pointer" onClick={toggleSettingsModal}>
-          <Settings size={24} />
+          <Settings size={20} />
         </div>
 
         {showSettingsModal && (

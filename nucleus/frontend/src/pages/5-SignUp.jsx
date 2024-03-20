@@ -17,7 +17,6 @@ function SignUp() {
 
   	return (
 		<div>
-            <Header />
             <form id="signup" className="form" onSubmit={handleSubmit}>
                 <h1 className="form-title">Sign Up</h1>
                 <input

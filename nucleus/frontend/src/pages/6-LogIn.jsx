@@ -17,7 +17,6 @@ function LogIn() {
 
   	return (
 		<div>
-            <Header />
             <form id="login" className="form" onSubmit={handleSubmit}>
                 <h1 className="form-title">Log In</h1>
                  <input
