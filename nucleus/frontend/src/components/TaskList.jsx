@@ -64,9 +64,11 @@ useEffect(() => {
 
   const removeTask = (taskId) => {
     const removedTask = tasks.find(task => task.id === taskId);
-  
+    // Get completed date/time
+    const completedTime = Date.now()
+    const removedTaskWithTime = {...removedTask, completedOn: completedTime}
     if (removedTask) {
-      setCompletedTasks([...completedTasks, removedTask]); // Move task to completedTasks
+      setCompletedTasks([...completedTasks, removedTaskWithTime]); // Move task to completedTasks
       setTasks(tasks.filter(task => task.id !== taskId)); // Remove task from tasks
       // Save both tasks and completedTasks to localStorage
       localStorage.setItem("tasks", JSON.stringify(tasks));
