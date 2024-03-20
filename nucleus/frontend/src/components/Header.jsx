@@ -1,8 +1,17 @@
 import React from "react";
 import logoImage from "../assets/images/nucleus-logo-white.svg";
 import { NavLink, Link } from "react-router-dom";
+import { useLogout } from '../hooks/useLogOut';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 function Header() {
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
+
+  const handleClick = () => {
+    logout();
+  };
+
   return (
     <div className="bg-[#4a417b] bg-opacity-10 dark:bg-[#e6c5ac] dark:bg-opacity-10 px-5 py-2 rounded-xl rounded-t-none sticky top-0 z-50 backdrop-blur-md">
       <div className="navbar">
@@ -26,6 +35,20 @@ function Header() {
           <NavLink to="/stats" className={({isActive}) => isActive ? "px-3 py-1 bg-[#4a417b] dark:bg-[#e6c5ac] bg-opacity-15 dark:bg-opacity-10 dark:text-slate-50 rounded-lg duration-500 cursor-pointer" : "px-3 py-1 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 hover:dark:text-slate-50 rounded-lg duration-500 cursor-pointer"}>
             Stats
           </NavLink>
+          {user && (
+            <button onClick={handleClick} className={({isActive}) => isActive ? "px-3 py-1 bg-[#4a417b] dark:bg-[#e6c5ac] bg-opacity-15 dark:bg-opacity-10 dark:text-slate-50 rounded-lg duration-500 cursor-pointer" : "px-3 py-1 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 hover:dark:text-slate-50 rounded-lg duration-500 cursor-pointer"}>Log Out</button>
+          )}
+          
+          {!user && (
+            <>
+              <NavLink to="/login" className={({isActive}) => isActive ? "px-3 py-1 bg-[#4a417b] dark:bg-[#e6c5ac] bg-opacity-15 dark:bg-opacity-10 dark:text-slate-50 rounded-lg duration-500 cursor-pointer" : "px-3 py-1 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 hover:dark:text-slate-50 rounded-lg duration-500 cursor-pointer"}>
+                Log In
+              </NavLink>
+              <NavLink to="/signup" className={({isActive}) => isActive ? "px-3 py-1 bg-[#4a417b] dark:bg-[#e6c5ac] bg-opacity-15 dark:bg-opacity-10 dark:text-slate-50 rounded-lg duration-500 cursor-pointer" : "px-3 py-1 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 hover:dark:text-slate-50 rounded-lg duration-500 cursor-pointer"}>
+                Sign Up
+              </NavLink>
+            </>
+                )}
         </ul>
       </div>
     </div>
