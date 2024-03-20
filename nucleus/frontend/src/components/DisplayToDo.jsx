@@ -1,14 +1,17 @@
 import React from "react";
 import dbTask from "../SampleTaskFile/SampleTask";
 import Task from "./Task";
+import CompletedTasks from "../components/CompletedTasks";
 
 
 function DisplayToDo() {
-  console.log(dbTask);
+  // console.log(dbTask);
+// get stored completed tasks array
+const storedArray = JSON.parse(localStorage.getItem("completedTasks")) || [];
 
   return (
     <div className="h-dvh flex flex-col lg:flex-row flex-wrap gap-3 items-center justify-evenly"> 
-     {dbTask.map((dbTask) =>(
+     {/* {dbTask.map((dbTask) =>(
       <Task 
         key={dbTask.taskID}
         title={dbTask.title}
@@ -21,7 +24,11 @@ function DisplayToDo() {
 
        status={dbTask.status}
       />
-    ))}
+    ))} */}
+
+<CompletedTasks array={storedArray}/>
+
+
     </div>
   )
 }
