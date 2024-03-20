@@ -52,7 +52,11 @@ useEffect(() => {
 
   const addTask = () => {
     if (newTaskText.trim() !== "") {
-      setTasks([...tasks, { id: tasks.length + 1, text: newTaskText }]);
+      const newTask = {
+        id: Date.now(), // Generate unique ID based on current timestamp
+        text: newTaskText
+      };
+      setTasks([...tasks, newTask]);
       setNewTaskText("");
       setIsModalOpen(false);
     }
