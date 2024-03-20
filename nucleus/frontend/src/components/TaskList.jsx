@@ -128,9 +128,13 @@ useEffect(() => {
   }
 
   return (
-    <div>
-      <h3 className="text-5xl mb-5">Task List</h3>
+    <div className="col-start-2 col-span-4 row-start-2 row-span-8 overflow-auto bg-slate-300 bg-opacity-5 p-11 rounded-xl hover:bg-slate-300 hover:bg-opacity-10 duration-500">
+      <div className="flex justify-between items-center">
+        <h3 className="text-5xl me-20">Task List</h3>
+        <button className="border-2 me-5 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /></button>
+      </div>
       <div className="task-container max-h-dvh my-3 overflow-auto">
+
         <div id="task-db-container">
           {
             tasks.map((task, index)=>{ 
@@ -178,7 +182,6 @@ useEffect(() => {
                             )}
                           </Droppable>
                         </DragDropContext>
-                              
                       </div>
             })
           }
@@ -186,16 +189,15 @@ useEffect(() => {
         
         {/* Drag and Drop went here */}
       </div>
-      <button className="mt-5 mb-3 border-2 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /> Task</button>
 
 
       {/* Modal */}
       {isModalOpen && (
         <div className="task-modal my-3">
           <div className="modal-content flex items-center">
-            <span className="close me-3 rounded-full p-2 border-2 border-rose-800 hover:bg-rose-500 duration-500 cursor-pointer text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
+            <span className="close me-3 rounded-full p-2 border-2 border-rose-800 hover:bg-rose-500 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
             <input
-              className="py-2 px-5 rounded-full w-fit"
+              className="py-2 px-5 rounded-full w-fit border-2 border-stone-400 border-opacity-20"
               type="text"
               placeholder="Enter Task"
               value={newTaskText}
@@ -203,7 +205,7 @@ useEffect(() => {
               onKeyDown={(e)=>{handleKeyDown(e, taskData.id)}}
               ref={inputRef}
             />
-            <button className="ms-3 rounded-full p-2 border-2 border-green-500 hover:bg-emerald-600 duration-500 cursor-pointer text-slate-50" onClick={editingTaskIndex !== null ? updateTask : addTask}>
+            <button className="ms-3 rounded-full p-2 border-2 border-green-500 hover:bg-emerald-600 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={editingTaskIndex !== null ? updateTask : addTask}>
               {updateAddButton(editingTaskIndex)}
             </button>
           </div>
