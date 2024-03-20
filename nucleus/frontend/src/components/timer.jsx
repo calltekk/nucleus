@@ -124,7 +124,7 @@ const PomodoroTimer = () => {
       case 'Short Break':
         return '#6EC5FF';
       case 'Long Break':
-        return '#0066FF';
+        return '#98FF98';
       default:
         return '#e1464c';
     }
@@ -135,7 +135,7 @@ const PomodoroTimer = () => {
       case 'Short Break':
         return '#6EC5FF'; // Light blue text for short break
       case 'Long Break':
-        return '#0066FF'; // Dark blue text for long break
+        return '#98FF98'; // Mint green text for long break
       default:
         return '#f88'; // Red text for Pomodoro
     }
