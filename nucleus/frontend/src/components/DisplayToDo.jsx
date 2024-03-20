@@ -1,13 +1,13 @@
-import React from 'react';
-import dbTask from '../SampleTaskFile/SampleTask';
-import Task from './Task';
+import React from "react";
+import dbTask from "../SampleTaskFile/SampleTask";
+import Task from "./Task";
 
 
 function DisplayToDo() {
   console.log(dbTask);
 
   return (
-    <div>
+    <div className="h-dvh flex flex-col lg:flex-row flex-wrap gap-3 items-center justify-evenly"> 
      {dbTask.map((dbTask) =>(
       <Task 
         key={dbTask.taskID}
@@ -26,4 +26,4 @@ function DisplayToDo() {
   )
 }
 
-export default DisplayToDo
+export default DisplayToDo;

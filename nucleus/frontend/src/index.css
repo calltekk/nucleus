@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	overflow: auto;
+}
+
+@media (prefers-color-scheme: light) {
+	:root{
+		background: 
+			linear-gradient(20deg, #627bb4, transparent), 
+			url(../src/assets/images/nnnoise.svg); 
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+   :root{
+		background: 
+			linear-gradient(20deg, #315a7b, transparent), 
+			url(../src/assets/images/nnnoise.svg); 
+   }
+}
+
+
+/* 
+darkmode:
+bg: #315a7b
+primary: #e6c5ac
+accent: #528bac
+secondary: #f6d5bd
+*/
+
+/* lightmode:
+bg: #627bb4 
+primary: #4a417b 
+accent: #b4529c
+secondary: #bdcdff
+*/
