@@ -2,19 +2,19 @@ import React, { useState, useRef, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { CircleCheckBig , CircleX, CirclePlus, Save, PenLine } from 'lucide-react';
 
-const TaskList = ({ completedTasksProp }) => {
-  
+const TaskList = () => {
   const [tasks, setTasks] = useState(() => {
     // Retrieve tasks from local storage or default to an empty array
     const storedTasks = localStorage.getItem("tasks");
     return storedTasks ? JSON.parse(storedTasks) : [];// state for empty array of tasks
   });
 
- // Set completed tasks to localStorage
- const [completedTasks, setCompletedTasks] = useState(() => {
-  const storedCompletedTasks = localStorage.getItem("completedTasks");
-  return storedCompletedTasks ? JSON.parse(storedCompletedTasks) : completedTasksProp || [];
-});
+  // Set completed tasks to localStorage
+  const [completedTasks, setCompletedTasks] = useState(() => {
+    const storedCompletedTasks = localStorage.getItem("completedTasks");
+    return storedCompletedTasks ? JSON.parse(storedCompletedTasks) : [];
+  });
+
 
   const [newTaskText, setNewTaskText] = useState(""); // set initial text of a new task as an empty string
   const [isModalOpen, setIsModalOpen] = useState(false); // set state of modal open to false
@@ -26,10 +26,10 @@ const TaskList = ({ completedTasksProp }) => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }, [tasks]);
 
-  // Effect to store completed tasks in local storage
-  useEffect(() => {
-    localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
-  }, [completedTasks]);
+ // Effect to store completed tasks in local storage
+ useEffect(() => {
+  localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+}, [completedTasks]);
 
 useEffect(() => {
   if (isModalOpen && inputRef.current) {
@@ -60,12 +60,17 @@ useEffect(() => {
 
   const removeTask = (taskId) => {
     const removedTask = tasks.find(task => task.id === taskId);
-    setTasks(tasks.filter(task => task.id !== taskId));
-    setCompletedTasks([...completedTasks, removedTask]); // Add removed task to completed tasks
   
-    // Update completed tasks in local storage
-    localStorage.setItem("completedTasks", JSON.stringify([...completedTasks, removedTask]));
+    if (removedTask) {
+      setCompletedTasks([...completedTasks, removedTask]); // Move task to completedTasks
+      setTasks(tasks.filter(task => task.id !== taskId)); // Remove task from tasks
+      // Save both tasks and completedTasks to localStorage
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+    }
   };
+  
+  
 
   const editTask = (index) => {
     setEditingTaskIndex(index);
@@ -115,9 +120,9 @@ useEffect(() => {
   }
 
   return (
-    <div className="col-start-2 col-span-4 row-start-2 row-span-8 overflow-auto bg-[#4a417b] bg-opacity-10 dark:bg-[#e6c5ac] dark:bg-opacity-10 p-11 rounded-xl hover:bg-opacity-15 duration-500">
+    <div className="col-start-2 col-span-4 row-start-2 row-span-8 overflow-auto bg-slate-300 bg-opacity-5 p-11 rounded-xl hover:bg-slate-300 hover:bg-opacity-10 duration-500">
       <div className="flex justify-between items-center">
-        <h3 className="text-5xl me-20 dark:text-slate-300">Task List</h3>
+        <h3 className="text-5xl me-20">Task List</h3>
         <button className="border-2 me-5 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /></button>
       </div>
       <div className="task-container max-h-dvh my-3 overflow-auto">
@@ -133,7 +138,7 @@ useEffect(() => {
                   <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
                     {(provided) => (
                       <div
-                        className="task-item my-3 pe-5 py-1 flex justify-between items-center group dark:text-slate-300"
+                        className="task-item my-3 pe-5 py-1 flex justify-between items-center group"
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
@@ -148,7 +153,7 @@ useEffect(() => {
                             ref={inputRef}
                           />
                         ) : (
-                          <p className="rounded-lg border-2 border-slate-500 dark:border-slate-400 w-full px-5 py-2">{task.text}</p>   
+                          <p className="rounded-lg border-2 border-slate-500 w-full px-5 py-2">{task.text}</p>   
                         )}
                         <div className="flex justify-start items-center">
                           <button className="group-hover:visible group-hover:scale-100 invisible scale-0 origin-left duration-500 ms-3 border-2 border-green-500 hover:bg-emerald-600 rounded-full p-2 my-auto dark:text-slate-50 hover:text-slate-50" onClick={() => removeTask(task.id)}><CircleCheckBig size={15}/></button>
@@ -164,6 +169,8 @@ useEffect(() => {
           </Droppable>
         </DragDropContext>
       </div>
+
+
 
       {/* Modal */}
       {isModalOpen && (
