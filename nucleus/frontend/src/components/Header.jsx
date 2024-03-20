@@ -32,7 +32,7 @@ function Header() {
 						<NavLink to="/tasks" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
 							<CircleCheckBig size={15} className="inline me-2" /> Tasks
 						</NavLink>
-						<NavLink to="/stats" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
+						<NavLink to="/stats" className={({ isActive }) => isActive ? `${activeBtnClasses} me-10` : `${btnClasses} me-10`}>
 							<PieChart size={15} className="inline me-2" /> Stats
 						</NavLink>
 						{user && (
@@ -42,10 +42,10 @@ function Header() {
 						)}
 						{!user && (
 							<>
-								<NavLink to="/login" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
+								<NavLink to="/login" className={({ isActive }) => isActive ? `${activeBtnClasses} group` : `${btnClasses}  group bg-stone-500 bg-opacity-40`}>
 									<LogIn size={15} className="inline me-2" /> Log In
 								</NavLink>
-								<NavLink to="/signup" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
+								<NavLink to="/signup" className={({ isActive }) => isActive ? `${activeBtnClasses} group` : `${btnClasses}  group bg-stone-500 bg-opacity-40`}>
 									<UserPlus size={15} className="inline me-2" /> Sign Up
 								</NavLink>
 							</>
