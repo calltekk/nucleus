@@ -119,6 +119,17 @@ const PomodoroTimer = () => {
     setSeconds(0);
   };
 
+  const getPathColor = () => {
+    switch (selectedOption.label) {
+      case 'Short Break':
+        return '#6EC5FF';
+      case 'Long Break':
+        return '#0066FF';
+      default:
+        return '#e1464c';
+    }
+  };  
+
   const percentageRemaining = ((minutes * 60 + seconds) / (initialMinutes * 60)) * 100;
 
   const toggleSettingsModal = () => {
@@ -146,22 +157,22 @@ const PomodoroTimer = () => {
           ))}
         </div>
         <div className="relative mt-16 mb-8">
-          <CircularProgressbar
-            className="select-none"
-            value={percentageRemaining}
-            text={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
-            styles={buildStyles({
-              rotation: 0,
-              strokeLinecap: 'butt',
-              textSize: '14px',
-              pathTransitionDuration: 0.5,
-              pathColor: `rgba(225,70,76, ${percentageRemaining / 100})`,
-              textColor: '#f88',
-              trailColor: '#F1F0EE',
-              backgroundColor: '',
-              width: '130px', // Adjust the width as needed
-            })}
-          />
+        <CircularProgressbar
+  className="select-none"
+  value={percentageRemaining}
+  text={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
+  styles={buildStyles({
+    rotation: 0,
+    strokeLinecap: 'butt',
+    textSize: '14px',
+    pathTransitionDuration: 0.5,
+    pathColor: getPathColor(), // Set path color dynamically
+    textColor: '#f88',
+    trailColor: '#F1F0EE',
+    backgroundColor: '',
+    width: '130px',
+  })}
+/>
         </div>
         <div className="flex justify-center space-x-8 mt-10"> {/* Adjust margin-top here */}
           <button
