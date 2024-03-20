@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {useSignup} from '../hooks/useSignUp';
-import Header from "../components/Header";
 
 function SignUp() {
     const [name, setName] = useState('');
@@ -16,8 +15,8 @@ function SignUp() {
     }
 
   	return (
-		<div>
-            <form id="signup" className="form" onSubmit={handleSubmit}>
+		<div className="h-dvh w-full">
+            <form id="signup" className="form w-full" onSubmit={handleSubmit}>
                 <h1 className="form-title">Sign Up</h1>
                 <input
                     className="input-field"
