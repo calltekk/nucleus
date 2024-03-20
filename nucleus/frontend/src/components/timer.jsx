@@ -128,7 +128,19 @@ const PomodoroTimer = () => {
       default:
         return '#e1464c';
     }
-  };  
+  }; 
+  
+  const getTextColor = () => {
+    switch (selectedOption.label) {
+      case 'Short Break':
+        return '#6EC5FF'; // Light blue text for short break
+      case 'Long Break':
+        return '#0066FF'; // Dark blue text for long break
+      default:
+        return '#f88'; // Red text for Pomodoro
+    }
+  };
+  
 
   const percentageRemaining = ((minutes * 60 + seconds) / (initialMinutes * 60)) * 100;
 
@@ -166,8 +178,8 @@ const PomodoroTimer = () => {
     strokeLinecap: 'butt',
     textSize: '14px',
     pathTransitionDuration: 0.5,
-    pathColor: getPathColor(), // Set path color dynamically
-    textColor: '#f88',
+    pathColor: getPathColor(),
+    textColor: getTextColor(), // Set text color dynamically
     trailColor: '#F1F0EE',
     backgroundColor: '',
     width: '130px',
