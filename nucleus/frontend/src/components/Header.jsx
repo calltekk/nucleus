@@ -26,9 +26,9 @@ function Header() {
 				</div>
 				<div className="flex-none">
 					<ul className="flex text-md px-5 gap-x-4">
-						<NavLink to="/" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
+						{/* <NavLink to="/" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
 							<Home size={15} className="inline me-2" /> Home
-						</NavLink>
+						</NavLink> */}
 						<NavLink to="/tasks" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
 							<CircleCheckBig size={15} className="inline me-2" /> Tasks
 						</NavLink>
