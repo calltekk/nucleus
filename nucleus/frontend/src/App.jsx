@@ -6,7 +6,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import Header from "./components/Header";
 import HomePage from "./pages/1-HomePage";
 import TasksFullscreen from "./pages/2-Tasks";
-import Stats from "./pages/4- Stats";
+import Stats from "./pages/4-Stats";
 import SignUp from "./pages/5-SignUp";
 import LogIn from "./pages/6-LogIn";
 import './assets/css/form.css';
