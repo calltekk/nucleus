@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../components/Header";
 
 import PomodoroChart from "../components/Charts";
 
@@ -21,7 +20,7 @@ const Stats = () => {
   };
 
   return (
-    <div className="h-dvh">
+    <div className="min-h-dvh">
       <PomodoroChart pomodoroData={pomodoroData} />
     </div>
   );

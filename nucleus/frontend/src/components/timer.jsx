@@ -154,7 +154,7 @@ const PomodoroTimer = () => {
   return (
     <div className="flex flex-col items-center justify-center mt-n10"> {/* Adjust the negative margin (mt-n1) as needed */}
       <div className="p-4 mb-8 rounded-md text-center relative">
-        <div className="flex gap-4 justify-center items-center mb-8">
+        <div className="flex gap-5 justify-center items-center mb-8">
           {timerOptions.map((option) => (
             <button
               key={option.label}
@@ -168,7 +168,7 @@ const PomodoroTimer = () => {
             </button>
           ))}
         </div>
-        <div className="relative mt-16 mb-8 w-[80vw] mx-auto max-w-lg">
+        <div className="relative my-16 w-[80vw] mx-auto max-w-lg">
           <CircularProgressbar
             className="select-none"
             value={percentageRemaining}
@@ -185,7 +185,7 @@ const PomodoroTimer = () => {
             })}
           />
         </div>
-        <div className="flex justify-center space-x-8 mt-10"> {/* Adjust margin-top here */}
+        <div className="flex gap-5 justify-center items-center mt-8"> {/* Adjust margin-top here */}
           <button
             className="hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 py-2 px-6 rounded-xl lg:rounded-full"
             onClick={toggleTimer}
