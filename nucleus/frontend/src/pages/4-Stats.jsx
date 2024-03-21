@@ -20,7 +20,7 @@ const Stats = () => {
   };
 
   return (
-    <div className="min-h-dvh">
+    <div className="">
       <PomodoroChart pomodoroData={pomodoroData} />
     </div>
   );

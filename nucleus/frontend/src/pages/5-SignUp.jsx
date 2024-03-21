@@ -15,7 +15,7 @@ function SignUp() {
     }
 
   	return (
-		<div className="min-h-dvh w-full">
+		<div className="w-full">
             <form id="signup" className="flex flex-col justify-center items-center w-full px-10 py-10" onSubmit={handleSubmit}>
                 <h1 className="text-3xl mb-3">Sign Up</h1>
                 <input
