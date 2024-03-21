@@ -153,7 +153,7 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div className="col-start-7 col-span-5 row-start-3 row-span-8 flex flex-col items-center justify-center mt-n10"> {/* Adjust the negative margin (mt-n1) as needed */}
+    <div className="flex flex-col items-center justify-center mt-n10"> {/* Adjust the negative margin (mt-n1) as needed */}
       <div className="p-4 mb-8 rounded-md text-center relative">
         <div className="flex space-x-8 mb-8">
           {timerOptions.map((option) => (

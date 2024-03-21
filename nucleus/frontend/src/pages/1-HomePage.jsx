@@ -6,7 +6,7 @@ import Timer from "../components/timer";
 function HomePage() {
   	return (
 		<div>
-			<div id="home" className="h-dvh grid grid-rows-12 grid-cols-12 gap-5">
+			<div id="home" className="min-h-dvh flex flex-col lg:flex-row justify-evenly items-center gap-5 p-5">
 				<TaskList />	
 				<Timer />
 			</div>
