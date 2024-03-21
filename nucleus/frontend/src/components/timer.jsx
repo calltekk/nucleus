@@ -122,22 +122,19 @@ const PomodoroTimer = () => {
   const getPathColor = () => {
     switch (selectedOption.label) {
       case 'Short Break':
-        return '#6EC5FF';
+        return '#5F958C';
       case 'Long Break':
-        return '#98FF98';
+        return '#4B83A4';
       default:
-        return '#e1464c';
+        return '#8E3B46';
     }
   }; 
   
   const getTextColor = () => {
-    switch (selectedOption.label) {
-      case 'Short Break':
-        return '#6EC5FF'; // Light blue text for short break
-      case 'Long Break':
-        return '#98FF98'; // Mint green text for long break
-      default:
-        return '#f88'; // Red text for Pomodoro
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return ("#F5E3E0")
+    } else {
+      return ("#211C1C")
     }
   };
   
@@ -150,6 +147,11 @@ const PomodoroTimer = () => {
   const handleSettingsClose = () => {
     setShowSettingsModal(false);
   };
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    const newColorScheme = event.matches ? "dark" : "light";
+    console.log("new color scheme:" + newColorScheme)
+  });
 
   return (
     <div className="flex flex-col items-center justify-center mt-n10"> {/* Adjust the negative margin (mt-n1) as needed */}
