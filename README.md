@@ -10,7 +10,7 @@
 - [Usage](#usage)
 - [License](#license)
 - [Images](#images)
-- [Questions](#questions)
+- [Contributions](#contributions)
 - [Credits](#credits)
 
 ## Description
