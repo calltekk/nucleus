@@ -1,7 +1,6 @@
 import React from "react";
 import CompletedTasks from "../components/CompletedTasks";
 
-
 function DisplayToDo() {
   const storedArray = JSON.parse(localStorage.getItem("completedTasks")) || [];
 
