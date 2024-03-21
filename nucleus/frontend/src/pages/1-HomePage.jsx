@@ -1,14 +1,14 @@
 import React from "react";
 import TaskList from "../components/TaskList";
-import Timer from "../components/timer";
+import PomodoroTimer from "../components/timer";
 
 
 function HomePage() {
   	return (
 		<div>
-			<div id="home" className="h-dvh grid grid-rows-12 grid-cols-12 gap-5">
+			<div id="home" className="flex flex-col lg:flex-row justify-evenly items-center gap-5 px-5 py-10">
 				<TaskList />	
-				<Timer />
+				<PomodoroTimer />
 			</div>
 		</div>
   	)

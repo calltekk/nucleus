@@ -4,6 +4,7 @@
 
 :root {
 	overflow: auto;
+	min-height: 100vh;
 }
 
 @media (prefers-color-scheme: light) {
@@ -21,7 +22,6 @@
 			url(../src/assets/images/nnnoise.svg); 
    }
 }
-
 
 /* 
 darkmode:

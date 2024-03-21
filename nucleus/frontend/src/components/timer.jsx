@@ -18,11 +18,11 @@ const PomodoroTimer = () => {
   const labelIcon = (label) => {
     switch (label) {
       case "Pomodoro":
-        return (<NotebookPen className="inline me-2" size={18}/>);
+        return (<NotebookPen className="inline" size={18}/>);
       case "Short Break":
-        return (<Coffee className="inline me-2" size={18}/>);
+        return (<Coffee className="inline" size={18}/>);
       case "Long Break":
-        return (<Armchair className="inline me-2" size={18}/>);
+        return (<Armchair className="inline" size={18}/>);
       default:
         break;
     }
@@ -141,7 +141,6 @@ const PomodoroTimer = () => {
     }
   };
   
-
   const percentageRemaining = ((minutes * 60 + seconds) / (initialMinutes * 60)) * 100;
 
   const toggleSettingsModal = () => {
@@ -153,55 +152,55 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div className="col-start-7 col-span-5 row-start-3 row-span-8 flex flex-col items-center justify-center mt-n10"> {/* Adjust the negative margin (mt-n1) as needed */}
-      <div className="p-4 mb-8 rounded-md text-center relative">
-        <div className="flex space-x-8 mb-8">
+    <div className="flex flex-col items-center justify-center mt-n10"> {/* Adjust the negative margin (mt-n1) as needed */}
+      <div className="p-4 rounded-md text-center relative">
+        <div className="flex gap-5 justify-center items-center mb-8">
           {timerOptions.map((option) => (
             <button
               key={option.label}
-              className={`hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full ${
+              className={`hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 py-2 px-6 rounded-xl text-sm lg:rounded-full ${
                 option.label === selectedOption.label ? "bg-[#4a417b] dark:bg-[#e6c5ac] text-slate-50 dark:text-slate-800" : ''
               }`}
               onClick={() => handleOptionClick(option)}
             >
-              {labelIcon(option.label)}{option.label}
+              {labelIcon(option.label)}
+              <span className="hidden lg:inline lg:ms-2">{option.label}</span>
             </button>
           ))}
         </div>
-        <div className="relative mt-16 mb-8">
-        <CircularProgressbar
-  className="select-none"
-  value={percentageRemaining}
-  text={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
-  styles={buildStyles({
-    rotation: 0,
-    strokeLinecap: 'butt',
-    textSize: '14px',
-    pathTransitionDuration: 0.5,
-    pathColor: getPathColor(),
-    textColor: getTextColor(), // Set text color dynamically
-    trailColor: '#F1F0EE',
-    backgroundColor: '',
-    width: '130px',
-  })}
-/>
+        <div className="relative my-16 w-[80vw] mx-auto max-w-lg">
+          <CircularProgressbar
+            className="select-none"
+            value={percentageRemaining}
+            text={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
+            styles={buildStyles({
+              rotation: 0,
+              strokeLinecap: 'butt',
+              textSize: '14px',
+              pathTransitionDuration: 0.5,
+              pathColor: getPathColor(),
+              textColor: getTextColor(), // Set text color dynamically
+              trailColor: '#F1F0EE',
+              backgroundColor: '',
+            })}
+          />
         </div>
-        <div className="flex justify-center space-x-8 mt-10"> {/* Adjust margin-top here */}
+        <div className="flex gap-5 justify-center items-center mt-8"> {/* Adjust margin-top here */}
           <button
-            className="hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full"
+            className="hover:bg-[#4a417b] border-2 border-[#4a417b] dark:border-[#e6c5ac] dark:hover:bg-[#e6c5ac] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 py-2 px-6 rounded-xl lg:rounded-full"
             onClick={toggleTimer}
           >
             {startIcon(isActive)}{isActive ? 'Pause' : 'Start'}
           </button>
           <button
-            className="hover:bg-[#b4529c] border-2 border-[#b4529c] dark:border-[#cc7272] dark:hover:bg-[#cc7272] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 font-bold py-2 px-6 rounded-full"
+            className="hover:bg-[#b4529c] border-2 border-[#b4529c] dark:border-[#cc7272] dark:hover:bg-[#cc7272] duration-500 dark:text-slate-50 hover:text-slate-50 dark:hover:text-slate-800 py-2 px-6 rounded-xl lg:rounded-full"
             onClick={resetTimer}
           >
             <RotateCcw className="inline me-2" size={18}/>Reset
           </button>
         </div>
         
-        <div className="absolute top-0 right-0 mt-20 mr-0 cursor-pointer" onClick={toggleSettingsModal}>
+        <div className="hidden absolute top-0 right-0 mt-20 mr-0 cursor-pointer" onClick={toggleSettingsModal}>
           <Settings size={20} />
         </div>
 

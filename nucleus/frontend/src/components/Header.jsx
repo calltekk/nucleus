@@ -20,33 +20,38 @@ function Header() {
 		<div className="bg-[#4a417b] bg-opacity-10 dark:bg-[#e6c5ac] dark:bg-opacity-10 px-5 py-2 rounded-xl rounded-t-none sticky top-0 z-50 backdrop-blur-md">
 			<div className="navbar">
 				<div className="flex-1">
-					<Link to={"/"} className="w-32 px-5 py-3 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 rounded-xl duration-500 cursor-pointer">
+					<Link to={"/"} className="w-20 lg:w-32 px-2 lg:px-5 py-3 hover:bg-[#4a417b] hover:dark:bg-[#e6c5ac] hover:bg-opacity-15 dark:hover:bg-opacity-10 rounded-xl duration-500 cursor-pointer">
 						<img id="logo" src={logoImage} alt="logo" fill="red" />
 					</Link>
 				</div>
 				<div className="flex-none">
-					<ul className="flex text-md px-5 gap-x-4">
+					<ul className="flex text-md gap-x-2 lg:gap-x-4">
 						{/* <NavLink to="/" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
-							<Home size={15} className="inline me-2" /> Home
+							<Home size={15} className="inline lg:me-2" /> Home
 						</NavLink> */}
 						<NavLink to="/tasks" className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
-							<CircleCheckBig size={15} className="inline me-2" /> Tasks
+							<CircleCheckBig size={15} className="inline lg:me-2" />
+							<span className="hidden lg:block">Tasks</span> 
 						</NavLink>
-						<NavLink to="/stats" className={({ isActive }) => isActive ? `${activeBtnClasses} me-10` : `${btnClasses} me-10`}>
-							<PieChart size={15} className="inline me-2" /> Stats
+						<NavLink to="/stats" className={({ isActive }) => isActive ? `${activeBtnClasses} me-4 lg:me-10` : `${btnClasses} me-4 lg:me-10`}>
+							<PieChart size={15} className="inline lg:me-2" />
+							<span className="hidden lg:block">Stats</span> 
 						</NavLink>
 						{user && (
 							<button onClick={handleClick} className={({ isActive }) => isActive ? activeBtnClasses : btnClasses}>
-								<LogOut size={15} className="inline me-2" /> Log Out
+								<LogOut size={15} className="inline lg:me-2" />
+								<span className="hidden lg:block">Log Out</span>
 							</button>
 						)}
 						{!user && (
 							<>
 								<NavLink to="/login" className={({ isActive }) => isActive ? `${activeBtnClasses} group` : `${btnClasses}  group bg-stone-500 bg-opacity-40`}>
-									<LogIn size={15} className="inline me-2" /> Log In
+									<LogIn size={15} className="inline lg:me-2" />
+									<span className="hidden lg:block">Log In</span>
 								</NavLink>
 								<NavLink to="/signup" className={({ isActive }) => isActive ? `${activeBtnClasses} group` : `${btnClasses}  group bg-stone-500 bg-opacity-40`}>
-									<UserPlus size={15} className="inline me-2" /> Sign Up
+									<UserPlus size={15} className="inline lg:me-2" />
+									<span className="hidden lg:block">Sign In</span>
 								</NavLink>
 							</>
 						)}
