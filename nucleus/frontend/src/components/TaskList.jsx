@@ -126,7 +126,7 @@ useEffect(() => {
   }
 
   return (
-    <div className="overflow-auto bg-slate-300 bg-opacity-5 p-11 rounded-xl hover:bg-slate-300 hover:bg-opacity-10 duration-500">
+    <div className="bg-slate-300 bg-opacity-5 p-11 rounded-xl hover:bg-slate-300 hover:bg-opacity-10 duration-500">
       <div className="flex justify-between items-center">
         <h3 className="text-3xl lg:text-5xl me-16 lg:me-20">Task List</h3>
         <button className="border-2 lg:me-5 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /></button>

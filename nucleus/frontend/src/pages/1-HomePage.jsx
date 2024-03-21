@@ -6,7 +6,7 @@ import PomodoroTimer from "../components/timer";
 function HomePage() {
   	return (
 		<div>
-			<div id="home" className="flex flex-col lg:flex-row justify-evenly items-center gap-5 px-5 py-10">
+			<div id="home" className="flex flex-col-reverse lg:flex-row justify-evenly items-center lg:items-start gap-10 px-5 py-10">
 				<TaskList />	
 				<PomodoroTimer />
 			</div>
