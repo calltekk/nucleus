@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import { NavLink, Link } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 import Header from "./components/Header";
@@ -9,8 +8,6 @@ import TasksFullscreen from "./pages/2-Tasks";
 import Stats from "./pages/4-Stats";
 import SignUp from "./pages/5-SignUp";
 import LogIn from "./pages/6-LogIn";
-import './assets/css/form.css';
-
 
 function App() {
   const { user } = useAuthContext();

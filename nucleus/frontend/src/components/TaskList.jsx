@@ -62,19 +62,26 @@ useEffect(() => {
     }
   };
 
-  const removeTask = (taskId) => {
-    const removedTask = tasks.find(task => task.id === taskId);
-    // Get completed date/time
-    const completedTime = Date.now()
-    const removedTaskWithTime = {...removedTask, completedOn: completedTime}
-    if (removedTask) {
-      setCompletedTasks([...completedTasks, removedTaskWithTime]); // Move task to completedTasks
-      setTasks(tasks.filter(task => task.id !== taskId)); // Remove task from tasks
-      // Save both tasks and completedTasks to localStorage
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
-    }
-  };
+const removeTask = (taskId) => {
+  const removedTask = tasks.find(task => task.id === taskId);
+  // Get completed date/time
+  const completedTime = Date.now()
+  const removedTaskWithTime = {...removedTask, completedOn: completedTime}
+  if (removedTask) {
+    setCompletedTasks([...completedTasks, removedTaskWithTime]); // Move task to completedTasks
+    // Update pomodoro data in local storage
+    const updatedPomodoroData = JSON.parse(localStorage.getItem("pomodoroData"));
+    updatedPomodoroData.datasets[0].data = updatedPomodoroData.datasets[0].data.map((value, index) => {
+      if (index === new Date().getDay() - 1) {
+        return value + 1; // Increment pomodoro count for the current day
+      }
+      return value;
+    });
+    localStorage.setItem("pomodoroData", JSON.stringify(updatedPomodoroData));
+    // Remove task from tasks
+    setTasks(tasks.filter(task => task.id !== taskId));
+  }
+};
   
   
 
@@ -126,10 +133,10 @@ useEffect(() => {
   }
 
   return (
-    <div className="col-start-2 col-span-4 row-start-2 row-span-8 overflow-auto bg-slate-300 bg-opacity-5 p-11 rounded-xl hover:bg-slate-300 hover:bg-opacity-10 duration-500">
+    <div className="bg-slate-300 bg-opacity-5 p-11 rounded-xl hover:bg-slate-300 hover:bg-opacity-10 duration-500">
       <div className="flex justify-between items-center">
-        <h3 className="text-5xl me-20">Task List</h3>
-        <button className="border-2 me-5 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /></button>
+        <h3 className="text-3xl lg:text-5xl me-16 lg:me-20">Task List</h3>
+        <button className="border-2 lg:me-5 px-3 py-1 rounded-full bg-green-300 hover:bg-green-500 duration-500 text-slate-950" onClick={openModal}><CirclePlus className="inline" size={20} /></button>
       </div>
       <div className="task-container max-h-dvh my-3 overflow-auto">
         <DragDropContext onDragEnd={onDragEnd}>
@@ -184,7 +191,7 @@ useEffect(() => {
           <div className="modal-content flex items-center">
             <span className="close me-3 rounded-full p-2 border-2 border-rose-800 hover:bg-rose-500 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
             <input
-              className="py-2 px-5 rounded-full w-fit border-2 border-stone-400 border-opacity-20"
+              className="py-2 px-5 rounded-full border-2 border-stone-400 border-opacity-20"
               type="text"
               placeholder="Enter Task"
               value={newTaskText}
