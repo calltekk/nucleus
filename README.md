@@ -20,20 +20,38 @@ Our app is based on the Pomodoro Technique, a tried-and-tested learning method t
 
 With a minimalist UI and customisable session and break lengths, Nucleus is a simple solution for tasks that may initially seem overwhelming, helps build better study habits and sends procrastination packing.
 
-#### Technology / Languages used
+#### Technologies
 
-- React
-- Node.js
-- NPM
-- Tailwind CSS / Daisy UI
+- ![html5](https://img.shields.io/badge/HTML-232836?logo=html5)
+- ![css3](https://img.shields.io/badge/CSS-232836?logo=CSS3&logoColor=1572B6)
+- ![javascript](https://img.shields.io/badge/JavaScript-232836?logo=javascript)
+- ![nodejs](https://img.shields.io/badge/Node.js-232836?logo=nodedotjs)
+- ![npm](https://img.shields.io/badge/NPM-232836?logo=npm)
+- ![vite](https://img.shields.io/badge/Vite-232836?logo=vite)
+- ![react](https://img.shields.io/badge/React-232836?logo=react)
+- ![reactrouter](https://img.shields.io/badge/React_Router-232836?logo=reactrouter)
+- ![axios](https://img.shields.io/badge/Axios-232836?logo=axios&logoColor=5A29E4)
+- ![postcss](https://img.shields.io/badge/PostCSS-232836?logo=postcss&logoColor=DD3A0A)
+- ![tailwindcss](https://img.shields.io/badge/TailwindCSS-232836?logo=tailwindcss)
+- ![daisyui](https://img.shields.io/badge/DaisyUI-232836?logo=daisyui&logoColor=5A0EF8)
+- ![mongodb](https://img.shields.io/badge/MongoDB-232836?logo=mongodb)
+- ![git](https://img.shields.io/badge/Git-232836?logo=git)
+- ![github](https://img.shields.io/badge/GitHub-232836?logo=github)
+- ![vercel](https://img.shields.io/badge/Vercel-232836?logo=vercel)
 
-#### Packages used
+#### NPM Packages
 
-- lucide-react
-- react-beautiful-dnd
-- react-circular-progressbar
-- chartJS
-- moments
+- [axios](https://www.npmjs.com/package/axios)
+- [chart.js](https://www.npmjs.com/package/chartjs)
+- [lucide-react](https://www.npmjs.com/package/lucide-react)
+- [moment](https://www.npmjs.com/package/moment)
+- [react](https://www.npmjs.com/package/react)
+- [react-beautiful-dnd](https://www.npmjs.com/package/react-beautiful-dnd)
+- [react-calendar](https://www.npmjs.com/package/react-calendar)
+- [react-chartjs-2](https://www.npmjs.com/package/react-chartjs-2)
+- [react-circular-progressbar](https://www.npmjs.com/package/react-circular-progressbar)
+- [react-dom](https://www.npmjs.com/package/react-dom)
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom)
 
 ## Usage
 
