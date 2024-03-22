@@ -187,11 +187,10 @@ const removeTask = (taskId) => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="task-modal my-3">
-          <div className="modal-content flex items-center">
-            <span className="close me-3 rounded-full p-2 border-2 border-rose-800 hover:bg-rose-500 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
-            <input
-              className="py-2 px-5 rounded-full border-2 border-stone-400 border-opacity-20"
+        <div className="task-modal my-3 max-w-full">
+          <div className="modal-content flex flex-col items-end lg:flex-row gap-5 lg:items-center">
+            <textarea
+              className="py-2 px-5 rounded-lg border-2 border-stone-400 border-opacity-20 w-full"
               type="text"
               placeholder="Enter Task"
               value={newTaskText}
@@ -199,9 +198,12 @@ const removeTask = (taskId) => {
               onKeyDown={handleKeyDown}
               ref={inputRef}
             />
-            <button className="ms-3 rounded-full p-2 border-2 border-green-500 hover:bg-emerald-600 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={editingTaskIndex !== null ? updateTask : addTask}>
-              {updateAddButton(editingTaskIndex)}
-            </button>
+            <div className="flex gap-5">
+              <button className="rounded-full p-2 border-2 border-green-500 hover:bg-emerald-600 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={editingTaskIndex !== null ? updateTask : addTask}>
+                {updateAddButton(editingTaskIndex)}
+              </button>
+              <span className="close rounded-full p-2 border-2 border-rose-800 hover:bg-rose-500 duration-500 cursor-pointer dark:text-slate-50 hover:text-slate-50" onClick={closeModal}><CircleX size={20} /></span>
+            </div>
           </div>
         </div>
       )}
