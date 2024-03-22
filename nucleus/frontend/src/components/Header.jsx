@@ -3,7 +3,7 @@ import logoImage from "../assets/images/nucleus-logo-white.svg";
 import { NavLink, Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogOut";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { Home, CircleCheckBig, PieChart, LogIn, LogOut, UserPlus } from "lucide-react";
+import { Home, CircleCheckBig, PieChart, LogIn, LogOut, UserPlus, BookOpenCheck } from "lucide-react";
 
 function Header() {
 	const { logout } = useLogout();
@@ -51,7 +51,7 @@ function Header() {
 								</NavLink>
 								<NavLink to="/signup" className={({ isActive }) => isActive ? `${activeBtnClasses} group` : `${btnClasses}  group bg-stone-500 bg-opacity-40`}>
 									<UserPlus size={15} className="inline lg:me-2" />
-									<span className="hidden lg:block">Sign In</span>
+									<span className="hidden lg:block">Sign Up</span>
 								</NavLink>
 							</>
 						)}
