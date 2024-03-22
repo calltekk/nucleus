@@ -65,12 +65,12 @@ const Charts = () => {
 
   return (
     <>
-      <div className="w-full h-full text-slate-200">
+      <>
         <Bar 
           data={pomodoroData} 
           options={options} 
         />
-      </div>
+      </>
     </>
   );
 };

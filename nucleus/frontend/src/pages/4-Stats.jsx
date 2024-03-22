@@ -22,11 +22,13 @@ const Stats = () => {
   return (
     <div className="flex justify-evenly items-center gap-10 px-5 py-10">
       <div className="bg-slate-300 bg-opacity-5 p-11 rounded-xl hover:bg-slate-300 hover:bg-opacity-10 duration-500 flex flex-col lg:flex-row gap-20">
-        <div className="w-[60vw] lg:w-[50vw]">
+        <div className="max-w-[60vw] lg:max-w-[50vw]">
           <h3 className="text-3xl lg:text-5xl me-16 lg:me-20 mb-7">Pomodoro Stats</h3>
-          <PomodoroChart pomodoroData={pomodoroData} /> 
+          <div className="lg:max-h-[800px] max-w-[700px]">
+            <PomodoroChart pomodoroData={pomodoroData} /> 
+          </div> 
         </div>
-        <div className="w-[60vw] lg:w-[50vw]">
+        <div className="max-w-[60vw] lg:max-w-[50vw]">
           <h3 className="text-3xl lg:text-5xl me-16 lg:me-20 mb-7">My Calendar</h3>
           <div className="pt-7">
             <MyCalendar />
