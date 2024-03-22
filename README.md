@@ -68,17 +68,25 @@ This app can be solely used as a pomodoro timer or you could add things to your 
 
 Here are a few screenshots of the website.
 
-#### Home page
-
+#### Home Page
 ![home page](./nucleus/frontend/src/assets/images/01-home-page.png)
 
 #### Completed tasks page
-
 ![completed task page](./nucleus/frontend/src/assets/images/02-tasks-page.png)
 
-#### Mobile view
+### Stats Page
+![stats page](./nucleus/frontend/src/assets/images/03-stats-page.png)
 
-![mobile view](./nucleus/frontend/src/assets/images/03-mobile-view.png)
+### Login Page
+![login page](./nucleus/frontend/src/assets/images/05-login-page.png)
+
+### Mobile View
+![mobile view](./nucleus/frontend/src/assets/images/06-mobile-view.png)
+![mobile view2](./nucleus/frontend/src/assets/images/07-mobile-view.png)
+
+### Light Mode
+![light mode](./nucleus/frontend/src/assets/images/08-light-view.png)
+![light mode](./nucleus/frontend/src/assets/images/09-light-view.png)
 
 ## Contributions
 
