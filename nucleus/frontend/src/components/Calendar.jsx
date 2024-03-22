@@ -26,15 +26,19 @@ const MyCalendar = () => {
 
   // Return JSX representing the calendar component
   return (
-    <Calendar
-      className="rounded-lg overflow-hidden shadow-lg bg-white w-full h-96"
-      tileContent={({ date, view }) =>
-        view === 'month' && hasLoggedActivity(date) ? <div className="highlighted-day bg-blue-500 rounded-full"></div> : null
-      }
-      calendarType="US"
-      prev2Label={null}
-      next2Label={null}
-    />
+    <div className="calendar-container">
+      <div className="calendar-wrapper">
+        <Calendar
+          className="w-full"
+          tileContent={({ date, view }) =>
+            view === 'month' && hasLoggedActivity(date) ? <div className="highlighted-day bg-blue-500 rounded-full"></div> : null
+          }
+          calendarType="US"
+          prev2Label={null}
+          next2Label={null}
+        />
+      </div>
+    </div>
   );
 };
 
