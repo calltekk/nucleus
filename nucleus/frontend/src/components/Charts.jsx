@@ -8,12 +8,12 @@ const Charts = () => {
     datasets: [
       {
         label: "Pomodoros Completed",
-        backgroundColor: "rgba(255, 99, 132, 0.6)", // Change bar color to red
+        backgroundColor: "rgba(255, 99, 132, 0.6)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
         hoverBackgroundColor: "rgba(255, 99, 132, 0.8)",
         hoverBorderColor: "rgba(255, 99, 132, 1)",
-        data: [0, 0, 0, 0, 0, 0, 0], // Initial pomodoro data
+        data: [0, 0, 0, 0, 0, 0, 0],
       },
     ],
   });
@@ -22,7 +22,7 @@ const Charts = () => {
   const getPomodoroDataFromLocalStorage = () => {
     const dataFromLocalStorage = JSON.parse(localStorage.getItem("pomodoroData"));
     if (dataFromLocalStorage) {
-      setPomodoroData(dataFromLocalStorage); // Update the state with the data from local storage
+      setPomodoroData(dataFromLocalStorage);
     }
   };
 
@@ -42,22 +42,22 @@ const Charts = () => {
       x: {
         type: 'category',
         ticks: {
-          color: 'white', // Set the color of x-axis labels to white
+          color: 'white',
           beginAtZero: true,
         },
         grid: {
-          color: 'lightgrey', // Set the color of grid lines to light grey
+          color: 'lightgrey',
         },
       },
       y: {
         type: 'linear',
         ticks: {
-          color: 'white', // Set the color of y-axis labels to white
+          color: 'white',
           beginAtZero: true,
           stepSize: 1,
         },
         grid: {
-          color: 'lightgrey', // Set the color of grid lines to light grey
+          color: 'lightgrey',
         },
       },
     },
@@ -65,7 +65,7 @@ const Charts = () => {
 
   return (
     <div className="mt-40 ml-4">
-      <h2 style={{ color: "white" }}>Pomodoro's complete</h2> {/* Set the color of header to white */}
+      <h2 className="text-white mb-4">Pomodoro's Completed</h2>
       <div style={{ height: "400px", width: "600px" }}>
         <Bar 
           data={pomodoroData} 
