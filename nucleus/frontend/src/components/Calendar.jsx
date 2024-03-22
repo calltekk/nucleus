@@ -29,11 +29,11 @@ const MyCalendar = () => {
     <div className="calendar-container">
       <div className="calendar-wrapper">
         <Calendar
-          className="w-full"
+          className="w-full text-slate-200"
           tileContent={({ date, view }) =>
             view === 'month' && hasLoggedActivity(date) ? <div className="highlighted-day bg-blue-500 rounded-full"></div> : null
           }
-          calendarType="US"
+          calendarType="gregory"
           prev2Label={null}
           next2Label={null}
         />

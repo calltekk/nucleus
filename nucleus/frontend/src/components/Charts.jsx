@@ -64,15 +64,14 @@ const Charts = () => {
   };
 
   return (
-    <div className="mt-40 ml-4">
-      <h2 className="text-white mb-4">Pomodoro's Completed</h2>
-      <div style={{ height: "400px", width: "600px" }}>
+    <>
+      <div className="w-full h-full text-slate-200">
         <Bar 
           data={pomodoroData} 
           options={options} 
         />
       </div>
-    </div>
+    </>
   );
 };
 
