@@ -62,19 +62,26 @@ useEffect(() => {
     }
   };
 
-  const removeTask = (taskId) => {
-    const removedTask = tasks.find(task => task.id === taskId);
-    // Get completed date/time
-    const completedTime = Date.now()
-    const removedTaskWithTime = {...removedTask, completedOn: completedTime}
-    if (removedTask) {
-      setCompletedTasks([...completedTasks, removedTaskWithTime]); // Move task to completedTasks
-      setTasks(tasks.filter(task => task.id !== taskId)); // Remove task from tasks
-      // Save both tasks and completedTasks to localStorage
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
-    }
-  };
+const removeTask = (taskId) => {
+  const removedTask = tasks.find(task => task.id === taskId);
+  // Get completed date/time
+  const completedTime = Date.now()
+  const removedTaskWithTime = {...removedTask, completedOn: completedTime}
+  if (removedTask) {
+    setCompletedTasks([...completedTasks, removedTaskWithTime]); // Move task to completedTasks
+    // Update pomodoro data in local storage
+    const updatedPomodoroData = JSON.parse(localStorage.getItem("pomodoroData"));
+    updatedPomodoroData.datasets[0].data = updatedPomodoroData.datasets[0].data.map((value, index) => {
+      if (index === new Date().getDay() - 1) {
+        return value + 1; // Increment pomodoro count for the current day
+      }
+      return value;
+    });
+    localStorage.setItem("pomodoroData", JSON.stringify(updatedPomodoroData));
+    // Remove task from tasks
+    setTasks(tasks.filter(task => task.id !== taskId));
+  }
+};
   
   
 
